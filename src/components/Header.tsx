@@ -51,7 +51,7 @@ const Header = () => {
             {/* Logo Image */}
             <div className="relative size-10 flex items-center justify-center">
               <img
-                src="/img/logo.jpg"
+                src={`${import.meta.env.BASE_URL}img/logo.jpg`}
                 alt="RUBIK Logo"
                 className="w-full h-full object-contain"
               />
