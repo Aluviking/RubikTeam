@@ -24,9 +24,9 @@ export default {
         },
         "rubi-red": "#E60023",
         "rubi-crimson": "#990011",
-        "rubi-black": "#050507",
-        "rubi-dark": "#0F0F12",
-        "rubi-gray": "#88888F",
+        "rubi-black": "#000000",
+        "rubi-dark": "#0D0D12",
+        "rubi-gray": "#9898A0",
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],

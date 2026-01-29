@@ -55,8 +55,18 @@ const ValueProposition = () => {
             viewport={{ once: true }}
             transition={{ delay: 0 }}
             whileHover={{ y: -8 }}
-            className="group relative h-[420px] bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/20 rounded-2xl p-8 flex flex-col justify-between overflow-hidden transition-all duration-500 hover:shadow-[0_0_30px_rgba(230,0,35,0.15)] hover:border-rubi-red/30"
+            className="premium-glass-card group relative h-[420px] rounded-2xl p-8 flex flex-col justify-between overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-rubi-red/20"
           >
+            {/* Left glow accent */}
+            <div className="absolute left-0 top-1/3 w-1 h-1/3 bg-gradient-to-b from-transparent via-rubi-red to-transparent opacity-0 group-hover:opacity-70 blur-sm transition-opacity duration-500"></div>
+
+            {/* Scan line */}
+            <motion.div
+              initial={{ top: '-100%' }}
+              animate={{ top: '200%' }}
+              transition={{ duration: 3.5, repeat: Infinity, ease: 'linear' }}
+              className="absolute left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-rubi-red/40 to-transparent pointer-events-none"
+            ></motion.div>
             {/* Animated Icon */}
             <div className="relative h-48 w-full flex items-center justify-center perspective-1000">
               <div className="absolute inset-0 bg-rubi-red/5 blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
@@ -92,8 +102,18 @@ const ValueProposition = () => {
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
             whileHover={{ y: -8 }}
-            className="group relative h-[420px] bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/20 rounded-2xl p-8 flex flex-col justify-between overflow-hidden transition-all duration-500 hover:shadow-[0_0_30px_rgba(230,0,35,0.15)] hover:border-rubi-red/30"
+            className="premium-glass-card group relative h-[420px] rounded-2xl p-8 flex flex-col justify-between overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-rubi-red/20"
           >
+            {/* Left glow accent */}
+            <div className="absolute left-0 top-1/3 w-1 h-1/3 bg-gradient-to-b from-transparent via-rubi-red to-transparent opacity-0 group-hover:opacity-70 blur-sm transition-opacity duration-500"></div>
+
+            {/* Scan line */}
+            <motion.div
+              initial={{ top: '-100%' }}
+              animate={{ top: '200%' }}
+              transition={{ duration: 3.5, repeat: Infinity, ease: 'linear', delay: 0.5 }}
+              className="absolute left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-rubi-red/40 to-transparent pointer-events-none"
+            ></motion.div>
             {/* Animated Icon - Layered Lock */}
             <div className="relative h-48 w-full flex items-center justify-center perspective-1000">
               <div className="absolute inset-0 bg-rubi-red/5 blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
@@ -132,8 +152,18 @@ const ValueProposition = () => {
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
             whileHover={{ y: -8 }}
-            className="group relative h-[420px] bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/20 rounded-2xl p-8 flex flex-col justify-between overflow-hidden transition-all duration-500 hover:shadow-[0_0_30px_rgba(230,0,35,0.15)] hover:border-rubi-red/30"
+            className="premium-glass-card group relative h-[420px] rounded-2xl p-8 flex flex-col justify-between overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-rubi-red/20"
           >
+            {/* Left glow accent */}
+            <div className="absolute left-0 top-1/3 w-1 h-1/3 bg-gradient-to-b from-transparent via-rubi-red to-transparent opacity-0 group-hover:opacity-70 blur-sm transition-opacity duration-500"></div>
+
+            {/* Scan line */}
+            <motion.div
+              initial={{ top: '-100%' }}
+              animate={{ top: '200%' }}
+              transition={{ duration: 3.5, repeat: Infinity, ease: 'linear', delay: 1 }}
+              className="absolute left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-rubi-red/40 to-transparent pointer-events-none"
+            ></motion.div>
             {/* Animated Icon - Bars */}
             <div className="relative h-48 w-full flex items-center justify-center perspective-1000 overflow-hidden">
               <div className="absolute inset-0 bg-rubi-red/5 blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>

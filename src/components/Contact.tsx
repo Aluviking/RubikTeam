@@ -75,7 +75,7 @@ const Contact = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
-            className="relative w-full h-[300px] perspective-1000 flex items-center justify-center border border-white/5 bg-white/[0.02] rounded-2xl overflow-hidden group shadow-2xl"
+            className="premium-glass-card relative w-full h-[300px] perspective-1000 flex items-center justify-center rounded-2xl overflow-hidden group"
           >
             {/* Animated grid background */}
             <div className="absolute inset-[-50%] animate-pulse-slow" style={{
@@ -155,9 +155,20 @@ const Contact = () => {
           transition={{ delay: 0.2 }}
           className="lg:col-span-7 relative"
         >
-          <form onSubmit={handleSubmit} className="relative bg-rubi-dark/60 backdrop-blur-2xl border border-white/5 rounded-3xl p-8 md:p-10 shadow-[0_0_50px_-10px_rgba(0,0,0,0.5)] overflow-hidden">
+          <form onSubmit={handleSubmit} className="premium-glass-card relative rounded-3xl p-8 md:p-10 overflow-hidden">
             {/* Top gradient glow */}
-            <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-gradient-to-b from-rubi-red/5 to-transparent blur-3xl pointer-events-none rounded-full transform translate-x-1/2 -translate-y-1/2"></div>
+            <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-gradient-to-b from-rubi-red/10 to-transparent blur-3xl pointer-events-none rounded-full transform translate-x-1/2 -translate-y-1/2"></div>
+
+            {/* Left glow accent */}
+            <div className="absolute left-0 top-1/3 w-1 h-1/3 bg-gradient-to-b from-transparent via-rubi-red to-transparent opacity-50 blur-sm"></div>
+
+            {/* Scan line */}
+            <motion.div
+              initial={{ top: '-100%' }}
+              animate={{ top: '200%' }}
+              transition={{ duration: 5, repeat: Infinity, ease: 'linear' }}
+              className="absolute left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-rubi-red/30 to-transparent pointer-events-none"
+            ></motion.div>
 
             {/* Name fields */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
@@ -269,13 +280,12 @@ const Contact = () => {
               </div>
               <button
                 type="submit"
-                className="group relative bg-white text-rubi-black px-6 py-3 rounded-full text-sm font-semibold hover:bg-rubi-red hover:text-white transition-all duration-300 flex items-center gap-2 overflow-hidden"
+                className="btn-premium-glass group px-6 py-3 rounded-full text-sm font-semibold flex items-center gap-2"
               >
                 <span className="relative z-10">Transmitir Solicitud</span>
                 <svg className="w-[18px] h-[18px] relative z-10 group-hover:rotate-45 transition-transform duration-300" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
                 </svg>
-                <div className="absolute inset-0 bg-rubi-red transform scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300"></div>
               </button>
             </div>
           </form>

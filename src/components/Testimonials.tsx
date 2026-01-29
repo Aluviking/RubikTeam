@@ -44,138 +44,65 @@ const Testimonials = () => {
       <div className="relative z-10 px-6 flex flex-col items-center">
         {/* Header */}
         <div className="text-center max-w-4xl mx-auto mb-20">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/5 bg-white/5 backdrop-blur-md mb-8 animate-float"
-          >
-            <span className="size-1.5 rounded-full bg-rubi-red shadow-[0_0_10px_#E60023]"></span>
-            <span className="text-[10px] uppercase tracking-[0.2em] text-rubi-gray font-medium">
-              Casos de Éxito
-            </span>
-          </motion.div>
-
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="font-display text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-[1.1] text-white mb-6"
+            className="font-display text-4xl md:text-5xl font-semibold tracking-tight leading-[1.2] text-white mb-4"
           >
-            LO QUE DICEN
-            <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-rubi-red via-white to-rubi-red animate-pulse-slow">
-              NUESTROS CLIENTES
-            </span>
+            Elegant Testimonials
           </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="text-rubi-gray text-lg font-light max-w-2xl mx-auto leading-relaxed"
-          >
-            Empresas que confiaron en RUBIK para su transformación digital y hoy lideran sus
-            industrias con tecnología de vanguardia.
-          </motion.p>
         </div>
 
         {/* Testimonials Grid */}
-        <div className="w-full max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-16">
+        <div className="w-full max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="group relative rounded-2xl p-8 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/20 hover:border-rubi-red/30 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(230,0,35,0.15)]"
+              transition={{ delay: index * 0.15 }}
+              className="group premium-glass-card relative rounded-2xl p-6 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-rubi-red/20"
             >
-              {/* Quote mark */}
-              <div className="absolute top-6 right-6 text-6xl text-rubi-red/10 font-serif leading-none">
-                "
-              </div>
+              {/* Left glow accent */}
+              <div className="absolute left-0 top-1/4 w-1 h-1/2 bg-gradient-to-b from-transparent via-rubi-red to-transparent opacity-0 group-hover:opacity-70 blur-sm transition-opacity duration-500"></div>
 
-              {/* Stars */}
-              <div className="flex gap-1 mb-6">
-                {[...Array(testimonial.rating)].map((_, i) => (
-                  <svg
-                    key={i}
-                    className="w-4 h-4 text-rubi-red"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                ))}
-              </div>
+              {/* Scan line */}
+              <motion.div
+                initial={{ top: '-100%' }}
+                animate={{ top: '200%' }}
+                transition={{ duration: 3, repeat: Infinity, ease: 'linear', delay: index * 0.3 }}
+                className="absolute left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-rubi-red/40 to-transparent pointer-events-none"
+              ></motion.div>
 
-              {/* Quote text */}
-              <p className="text-white/90 text-sm leading-relaxed mb-8 relative z-10">
-                {testimonial.quote}
-              </p>
-
-              {/* Author info */}
-              <div className="flex items-center gap-4 pt-6 border-t border-white/10">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-rubi-red/20 to-rubi-crimson/20 border border-white/10 flex items-center justify-center overflow-hidden">
-                  <span className="text-white font-display font-bold text-lg">
-                    {testimonial.name.charAt(0)}
-                  </span>
+              <div className="flex items-center gap-4 relative z-10">
+                {/* Avatar */}
+                <div className="flex-shrink-0">
+                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-rubi-red/30 to-rubi-crimson/30 border-2 border-rubi-red/40 flex items-center justify-center overflow-hidden group-hover:border-rubi-red/60 transition-colors">
+                    <span className="text-white font-display font-bold text-2xl">
+                      {testimonial.name.charAt(0)}
+                    </span>
+                  </div>
                 </div>
+
+                {/* Content */}
                 <div className="flex-1">
-                  <h4 className="text-white font-semibold text-sm">{testimonial.name}</h4>
-                  <p className="text-rubi-gray text-xs">
-                    {testimonial.role} - {testimonial.company}
+                  {/* Quote text */}
+                  <p className="text-white/90 text-sm leading-relaxed mb-3 italic">
+                    "{testimonial.quote.split(' ').slice(0, 8).join(' ')}..."
                   </p>
+
+                  {/* Author info */}
+                  <div>
+                    <h4 className="text-white font-semibold text-sm">- {testimonial.name}, {testimonial.role}</h4>
+                  </div>
                 </div>
               </div>
-
-              {/* Hover effect */}
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-rubi-red/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
             </motion.div>
           ))}
         </div>
 
-        {/* Stats row */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="w-full max-w-5xl mx-auto border-t border-white/5 pt-12 grid grid-cols-2 md:grid-cols-4 gap-8"
-        >
-          <div className="text-center">
-            <div className="text-4xl font-display font-bold text-white mb-2">
-              98<span className="text-rubi-red">%</span>
-            </div>
-            <div className="text-xs text-rubi-gray uppercase tracking-wider">
-              Satisfacción del Cliente
-            </div>
-          </div>
-          <div className="text-center">
-            <div className="text-4xl font-display font-bold text-white mb-2">
-              50<span className="text-rubi-red">+</span>
-            </div>
-            <div className="text-xs text-rubi-gray uppercase tracking-wider">
-              Proyectos Completados
-            </div>
-          </div>
-          <div className="text-center">
-            <div className="text-4xl font-display font-bold text-white mb-2">
-              4<span className="text-rubi-red">x</span>
-            </div>
-            <div className="text-xs text-rubi-gray uppercase tracking-wider">ROI Promedio</div>
-          </div>
-          <div className="text-center">
-            <div className="text-4xl font-display font-bold text-white mb-2">
-              24<span className="text-rubi-red">/7</span>
-            </div>
-            <div className="text-xs text-rubi-gray uppercase tracking-wider">
-              Soporte Disponible
-            </div>
-          </div>
-        </motion.div>
       </div>
 
       {/* Bottom line effect */}

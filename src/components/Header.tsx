@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { HiMenuAlt3, HiX } from 'react-icons/hi';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { scrollY } = useScroll();
+
+  const headerY = useTransform(scrollY, [0, 100], [0, -10]);
+  const logoOpacity = useTransform(scrollY, [0, 50], [1, 0.7]);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -23,132 +25,189 @@ const Header = () => {
   ];
 
   const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setIsMobileMenuOpen(false);
-    }
+    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
     <motion.header
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white ${
-        isScrolled
-          ? 'border-b border-neutral-dark/10 shadow-lg'
-          : 'border-b border-neutral-dark/5'
-      }`}
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-700"
+      style={{ y: headerY }}
     >
-      <nav className="container-custom mx-auto px-8 py-4">
-        <div className="flex items-center justify-between">
-          {/* Logo with Image */}
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            className="flex items-center gap-3 group cursor-pointer"
-          >
-            {/* Logo Image */}
-            <div className="relative size-10 flex items-center justify-center">
-              <img
-                src={`${import.meta.env.BASE_URL}img/logo.jpg`}
-                alt="RUBIK Logo"
-                className="w-full h-full object-contain"
-              />
-            </div>
-            <span className="font-logo font-black tracking-tight text-2xl text-rubi-black" style={{ letterSpacing: '0.02em' }}>RUBIK</span>
-          </motion.div>
+      {/* Cristal principal con gradiente */}
+      <div className={`relative mx-4 mt-4 rounded-2xl overflow-hidden transition-all duration-700 ${
+        isScrolled
+          ? 'bg-black/95 shadow-[0_20px_80px_rgba(0,0,0,0.9)]'
+          : 'bg-black/40 shadow-[0_10px_40px_rgba(0,0,0,0.3)]'
+      }`}
+        style={{
+          backdropFilter: isScrolled ? 'blur(60px) saturate(200%)' : 'blur(30px) saturate(150%)',
+        }}
+      >
+        {/* Reflejo de cristal superior MUY visible */}
+        <div
+          className={`absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-white/30 via-white/10 to-transparent transition-opacity duration-700 ${
+            isScrolled ? 'opacity-20' : 'opacity-30'
+          }`}
+        />
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-10">
-            {navItems.map((item, index) => (
-              <motion.a
-                key={item.name}
-                href={item.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection(item.href);
-                }}
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="text-[13px] font-medium text-neutral-gray hover:text-rubi-black transition-colors tracking-wide cursor-pointer relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-[2px] after:bg-rubi-red after:transition-all hover:after:w-full"
-                whileHover={{ scale: 1.05 }}
-              >
-                {item.name}
-              </motion.a>
-            ))}
-          </div>
+        {/* Borde brillante superior */}
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/50 to-transparent" />
 
-          {/* CTA Buttons */}
-          <div className="hidden md:flex items-center gap-6">
-            <button className="text-[13px] font-medium text-rubi-black hover:text-rubi-red transition-colors">
-              Acceso Cliente
-            </button>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => scrollToSection('#contacto')}
-              className="bg-rubi-red hover:bg-rubi-crimson text-white pl-5 pr-4 py-2.5 rounded-full text-[13px] font-medium transition-all flex items-center gap-2 group shadow-lg shadow-rubi-red/20"
-            >
-              Inicializar
-              <svg
-                className="w-4 h-4 group-hover:translate-x-1 transition-transform"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </motion.button>
-          </div>
+        {/* Borde inferior con gradiente rojo */}
+        <div className={`absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-rubi-red to-transparent transition-all duration-700 ${
+          isScrolled ? 'opacity-100 shadow-[0_0_20px_rgba(230,0,35,0.5)]' : 'opacity-0'
+        }`} />
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden text-3xl text-rubi-black hover:text-rubi-red transition-colors"
-          >
-            {isMobileMenuOpen ? <HiX /> : <HiMenuAlt3 />}
-          </button>
-        </div>
+        {/* Contenido del nav */}
+        <nav className="relative px-8 py-5">
+          <div className="flex items-center justify-between max-w-7xl mx-auto">
 
-        {/* Mobile Menu */}
-        <AnimatePresence>
-          {isMobileMenuOpen && (
+            {/* Logo minimalista con cristal */}
             <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-              className="md:hidden overflow-hidden"
+              className="flex items-center gap-3 cursor-pointer group"
+              whileHover={{ scale: 1.02 }}
+              style={{ opacity: logoOpacity }}
             >
-              <div className="pt-4 pb-2 space-y-3">
-                {navItems.map((item) => (
-                  <motion.a
-                    key={item.name}
-                    href={item.href}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      scrollToSection(item.href);
-                    }}
-                    whileHover={{ x: 10 }}
-                    className="block py-2 text-neutral-gray hover:text-rubi-black transition-colors duration-300 font-medium cursor-pointer"
-                  >
-                    {item.name}
-                  </motion.a>
-                ))}
-                <motion.button
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => scrollToSection('#contacto')}
-                  className="bg-rubi-red hover:bg-rubi-crimson text-white w-full py-2.5 rounded-full text-[13px] font-medium transition-all mt-4 shadow-lg shadow-rubi-red/20"
+              <div className="relative">
+                {/* Logo con efecto de cristal */}
+                <div className={`relative rounded-lg overflow-hidden transition-all duration-500 ${
+                  isScrolled ? 'w-10 h-10' : 'w-12 h-12'
+                }`}>
+                  {/* Gradiente de fondo */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-rubi-red/60 via-rubi-red/30 to-transparent" />
+
+                  <img
+                    src={`${import.meta.env.BASE_URL}img/logo.jpg`}
+                    alt="RUBIK"
+                    className="w-full h-full object-cover"
+                  />
+
+                  {/* Reflejo de cristal superior SUPER visible */}
+                  <div className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-white/60 to-transparent" />
+
+                  {/* Borde brillante */}
+                  <div className="absolute inset-0 border border-white/30 rounded-lg" />
+                </div>
+
+                {/* REFLEJO INVERTIDO DEBAJO - MUY VISIBLE */}
+                <div
+                  className="absolute left-0 right-0 rounded-lg overflow-hidden"
+                  style={{
+                    top: isScrolled ? '42px' : '50px',
+                    height: isScrolled ? '40px' : '48px',
+                    opacity: 0.5,
+                    filter: 'blur(6px)',
+                    transform: 'scaleY(-1)',
+                    maskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, transparent 70%)',
+                  }}
                 >
-                  Inicializar
-                </motion.button>
+                  <div className="absolute inset-0 bg-gradient-to-br from-rubi-red/40 to-transparent" />
+                  <img
+                    src={`${import.meta.env.BASE_URL}img/logo.jpg`}
+                    alt=""
+                    className="w-full h-full object-cover opacity-70"
+                    style={{ transform: 'scaleY(-1)' }}
+                  />
+                </div>
               </div>
+
+              <span className={`font-light uppercase transition-all duration-500 ${
+                isScrolled
+                  ? 'text-xl tracking-[0.4em]'
+                  : 'text-2xl tracking-[0.5em]'
+              }`}>
+                RUBIK
+              </span>
             </motion.div>
-          )}
-        </AnimatePresence>
-      </nav>
+
+            {/* Navegación minimalista */}
+            <div className="hidden md:flex items-center gap-12">
+              {navItems.map((item, i) => (
+                <motion.button
+                  key={item.name}
+                  onClick={() => scrollToSection(item.href)}
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.1 + 0.3 }}
+                  className="relative group"
+                >
+                  <span className="text-[10px] font-light uppercase tracking-[0.3em] text-white/50 group-hover:text-white transition-all duration-500">
+                    {item.name}
+                  </span>
+
+                  {/* Línea animada */}
+                  <div className="absolute -bottom-1 left-0 w-0 h-px bg-gradient-to-r from-rubi-red to-white group-hover:w-full transition-all duration-700" />
+
+                  {/* Reflejo de la línea */}
+                  <div
+                    className="absolute left-0 w-0 h-px bg-gradient-to-r from-rubi-red/30 to-white/30 group-hover:w-full transition-all duration-700 blur-[1px] opacity-60"
+                    style={{ bottom: '-6px' }}
+                  />
+                </motion.button>
+              ))}
+            </div>
+
+            {/* Botón CTA con cristal */}
+            <div className="hidden md:block">
+              <motion.button
+                onClick={() => scrollToSection('#contacto')}
+                whileHover={{ scale: 1.05 }}
+                className="relative group"
+              >
+                <div className={`px-8 py-3 rounded-full border-2 transition-all duration-500 ${
+                  isScrolled
+                    ? 'border-rubi-red/70 bg-rubi-red/30'
+                    : 'border-white/40 bg-white/10'
+                }`}
+                  style={{ backdropFilter: 'blur(20px)' }}
+                >
+                  {/* Reflejo superior del botón */}
+                  <div className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-white/30 to-transparent rounded-full" />
+
+                  <span className="relative z-10 text-[10px] font-medium uppercase tracking-[0.4em] text-white">
+                    Inicializar
+                  </span>
+                </div>
+
+                {/* REFLEJO INVERTIDO DEL BOTÓN - MUY VISIBLE */}
+                <div
+                  className="absolute left-0 right-0 h-full rounded-full opacity-0 group-hover:opacity-60 transition-all duration-500"
+                  style={{
+                    top: '48px',
+                    background: 'linear-gradient(180deg, rgba(230,0,35,0.4) 0%, transparent 100%)',
+                    filter: 'blur(8px)',
+                    transform: 'scaleY(-0.7)',
+                  }}
+                />
+              </motion.button>
+            </div>
+
+            {/* Mobile menu button */}
+            <button
+              className="md:hidden text-white/70 hover:text-white text-2xl transition-colors"
+              onClick={() => {}}
+            >
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+          </div>
+        </nav>
+      </div>
+
+      {/* REFLEJO COMPLETO DEL HEADER - MUY VISIBLE */}
+      <div
+        className={`absolute left-0 right-0 mx-4 rounded-2xl transition-all duration-700 pointer-events-none ${
+          isScrolled ? 'opacity-40' : 'opacity-25'
+        }`}
+        style={{
+          top: isScrolled ? '88px' : '96px',
+          height: '100px',
+          background: 'linear-gradient(180deg, rgba(0,0,0,0.8) 0%, transparent 100%)',
+          filter: 'blur(20px)',
+          transform: 'scaleY(-0.5)',
+        }}
+      />
     </motion.header>
   );
 };

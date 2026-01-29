@@ -94,15 +94,15 @@ const Projects = () => {
           </div>
 
           {/* Filter buttons */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             {filters.map((filter) => (
               <button
                 key={filter}
                 onClick={() => setActiveFilter(filter)}
-                className={`px-4 py-2 rounded-full text-[12px] font-medium tracking-wide transition-colors ${
+                className={`px-4 py-2 rounded-full text-[12px] font-medium tracking-wide transition-all ${
                   activeFilter === filter
-                    ? 'bg-rubi-red text-white'
-                    : 'bg-transparent hover:bg-white/5 text-rubi-gray hover:text-white'
+                    ? 'btn-premium-glass'
+                    : 'btn-secondary-glass'
                 }`}
               >
                 {filter}
@@ -120,14 +120,21 @@ const Projects = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="group relative w-full h-[500px] backdrop-blur-2xl border border-white/[0.08] rounded-2xl overflow-hidden cursor-pointer hover:border-rubi-red/40 transition-colors duration-500 perspective-1000"
-              style={{
-                background: 'rgba(15, 15, 18, 0.6)',
-                boxShadow: '0 4px 30px rgba(0, 0, 0, 0.3)'
-              }}
+              className="group premium-glass-card relative w-full h-[500px] rounded-2xl overflow-hidden cursor-pointer hover:shadow-2xl hover:shadow-rubi-red/20 transition-all duration-500"
             >
               {/* Hover gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-br from-rubi-red/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-rubi-red/15 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+
+              {/* Left glow accent */}
+              <div className="absolute left-0 top-1/4 w-1 h-1/2 bg-gradient-to-b from-transparent via-rubi-red to-transparent opacity-0 group-hover:opacity-70 blur-sm transition-opacity duration-500"></div>
+
+              {/* Scan line */}
+              <motion.div
+                initial={{ top: '-100%' }}
+                animate={{ top: '200%' }}
+                transition={{ duration: 4, repeat: Infinity, ease: 'linear', delay: index * 0.5 }}
+                className="absolute left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-rubi-red/40 to-transparent pointer-events-none"
+              ></motion.div>
 
               {/* Background visual elements */}
               <div className="absolute inset-0 z-0 overflow-hidden flex items-center justify-center opacity-40 group-hover:opacity-60 transition-opacity duration-500">
@@ -228,7 +235,7 @@ const Projects = () => {
         {/* Load more button */}
         <div className="mt-20 flex items-center justify-center gap-4">
           <div className="h-[1px] w-20 bg-gradient-to-r from-transparent to-white/20"></div>
-          <button className="px-6 py-3 border border-white/10 rounded-full hover:bg-white/5 transition-colors text-xs font-medium uppercase tracking-widest text-white/80 flex items-center gap-2">
+          <button className="btn-secondary-glass px-6 py-3 rounded-full text-xs font-medium uppercase tracking-widest text-white/80 flex items-center gap-2">
             Ver Más Proyectos
             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />

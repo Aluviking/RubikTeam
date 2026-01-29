@@ -151,22 +151,30 @@ const Pricing = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className={`group relative rounded-2xl p-8 backdrop-blur-2xl border transition-all duration-500 hover:-translate-y-1 ${
+              className={`group relative premium-glass-card rounded-2xl p-8 transition-all duration-500 ${
                 plan.highlighted
-                  ? 'bg-rubi-dark/60 border-rubi-red/40 shadow-[0_0_0_1px_rgba(230,0,35,0.3),0_0_40px_-10px_rgba(230,0,35,0.3)] -translate-y-2 md:-translate-y-4 hover:-translate-y-6'
-                  : 'bg-rubi-dark/60 border-white/5 hover:border-white/10'
+                  ? 'shadow-[0_0_0_2px_rgba(230,0,35,0.4),0_0_40px_-10px_rgba(230,0,35,0.5)] -translate-y-2 md:-translate-y-4 hover:-translate-y-6 scale-105'
+                  : 'hover:-translate-y-2 hover:shadow-2xl hover:shadow-rubi-red/20'
               }`}
             >
-              {/* Card gradient overlay */}
-              <div className={`absolute inset-0 rounded-2xl pointer-events-none transition-opacity duration-500 ${
-                plan.highlighted
-                  ? 'bg-gradient-to-b from-rubi-red/8 to-transparent opacity-100'
-                  : 'bg-gradient-to-b from-white/3 to-transparent opacity-0 group-hover:opacity-100'
+              {/* Extra glow for highlighted */}
+              {plan.highlighted && (
+                <div className="absolute inset-0 bg-gradient-to-b from-rubi-red/10 to-transparent rounded-2xl pointer-events-none"></div>
+              )}
+
+              {/* Left glow accent */}
+              <div className={`absolute left-0 top-1/4 w-1 h-1/2 bg-gradient-to-b from-transparent via-rubi-red to-transparent blur-sm transition-opacity duration-500 ${
+                plan.highlighted ? 'opacity-80' : 'opacity-0 group-hover:opacity-70'
               }`}></div>
 
               {/* Scanning line for highlighted card */}
               {plan.highlighted && (
-                <div className="absolute inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-rubi-red to-transparent opacity-50 animate-scan pointer-events-none"></div>
+                <motion.div
+                  initial={{ top: '-100%' }}
+                  animate={{ top: '200%' }}
+                  transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
+                  className="absolute left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-rubi-red/60 to-transparent pointer-events-none"
+                ></motion.div>
               )}
 
               {/* Active badge */}
@@ -252,13 +260,10 @@ const Pricing = () => {
                   }}
                   className={`relative w-full py-3.5 rounded-lg text-xs font-bold tracking-wider transition-all overflow-hidden group/btn ${
                     plan.highlighted
-                      ? 'bg-rubi-red text-white hover:bg-rubi-crimson shadow-[0_0_20px_rgba(230,0,35,0.4)] hover:shadow-[0_0_30px_rgba(230,0,35,0.6)]'
-                      : 'border border-white/10 text-white hover:bg-white/5 group-hover:border-white/20'
+                      ? 'btn-premium-glass'
+                      : 'btn-secondary-glass'
                   }`}
                 >
-                  {plan.highlighted && (
-                    <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover/btn:animate-shimmer"></div>
-                  )}
                   <span className="relative z-10">{plan.buttonText}</span>
                 </button>
               </div>

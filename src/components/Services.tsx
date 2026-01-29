@@ -175,32 +175,38 @@ const Services = () => {
               className="group relative"
             >
               <div className={`
-                relative h-full bg-neutral-dark/50 backdrop-blur-sm rounded-2xl p-6
-                border-2 border-white/10 hover:border-rubi-red/40
-                transition-all duration-300
-                ${selectedService === index ? 'scale-105 shadow-2xl shadow-rubi-red/20' : 'hover:scale-105'}
+                premium-glass-card rounded-2xl p-6 h-full
+                transition-all duration-500
+                ${selectedService === index ? 'scale-105 shadow-2xl shadow-rubi-red/30' : 'hover:scale-[1.02]'}
               `}>
-                {/* Efecto de brillo en hover */}
-                <div className="absolute inset-0 bg-gradient-to-br from-rubi-red/10 to-rubi-crimson/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"></div>
+                {/* Reflejo superior 3D */}
+                <div className="glass-reflection"></div>
+                <div className="glass-side-light"></div>
+
+                {/* Glow effect en hover */}
+                <div className="absolute inset-0 bg-gradient-to-br from-rubi-red/20 via-rubi-red/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none"></div>
+
+                {/* Left glow accent */}
+                <div className="absolute left-0 top-1/4 w-1 h-1/2 bg-gradient-to-b from-transparent via-rubi-red to-transparent opacity-0 group-hover:opacity-70 blur-sm transition-opacity duration-500"></div>
 
                 {/* Contenido */}
                 <div className="relative z-10">
-                  {/* Icono */}
+                  {/* Icono con glass container */}
                   <motion.div
-                    whileHover={{ rotate: 360, scale: 1.1 }}
-                    transition={{ duration: 0.6 }}
-                    className="inline-flex p-4 rounded-xl mb-4 bg-gradient-to-br from-rubi-red to-rubi-crimson shadow-lg"
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    transition={{ duration: 0.3 }}
+                    className="icon-glass-container inline-flex p-4 rounded-xl mb-4"
                   >
-                    <service.icon className="text-3xl text-white" />
+                    <service.icon className="text-3xl text-white drop-shadow-[0_0_8px_rgba(230,0,35,0.6)]" />
                   </motion.div>
 
                   {/* Título */}
-                  <h3 className="text-heading font-bold mb-3 text-white group-hover:text-rubi-red transition-colors">
+                  <h3 className="text-heading font-bold mb-3 text-white group-hover:text-rubi-red transition-colors duration-300">
                     {service.title}
                   </h3>
 
                   {/* Descripción */}
-                  <p className="text-description text-gray-400 mb-4 leading-relaxed">
+                  <p className="text-description text-gray-300 mb-4 leading-relaxed">
                     {service.description}
                   </p>
 
@@ -212,23 +218,22 @@ const Services = () => {
                         initial={{ opacity: 0, x: -20 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
-                        transition={{ delay: 0.1 * idx }}
-                        className="flex items-start text-sm text-gray-400"
+                        transition={{ delay: 0.05 * idx }}
+                        className="flex items-start text-sm text-gray-300 group-hover:text-white transition-colors"
                       >
-                        <span className="text-rubi-red mr-2 mt-1">▸</span>
+                        <span className="text-rubi-red mr-2 mt-1 drop-shadow-[0_0_4px_rgba(230,0,35,0.8)] text-base">▸</span>
                         {feature}
                       </motion.li>
                     ))}
                   </ul>
                 </div>
 
-                {/* Barra de progreso decorativa */}
+                {/* Scan line decorativo */}
                 <motion.div
-                  initial={{ width: 0 }}
-                  whileInView={{ width: '100%' }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.3, duration: 0.8 }}
-                  className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-rubi-red to-rubi-crimson rounded-b-2xl"
+                  initial={{ top: '-100%' }}
+                  animate={{ top: '200%' }}
+                  transition={{ duration: 3, repeat: Infinity, ease: 'linear', delay: index * 0.2 }}
+                  className="absolute left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-rubi-red/50 to-transparent pointer-events-none"
                 ></motion.div>
               </div>
             </motion.div>
@@ -249,9 +254,9 @@ const Services = () => {
               const element = document.querySelector('#contacto');
               if (element) element.scrollIntoView({ behavior: 'smooth' });
             }}
-            className="btn-primary text-lg"
+            className="btn-premium-glass px-8 py-4 rounded-full text-white font-semibold text-lg"
           >
-            Solicitar consultoría gratuita
+            <span className="relative z-10">Solicitar consultoría gratuita</span>
           </motion.button>
         </motion.div>
       </div>

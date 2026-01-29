@@ -9,13 +9,22 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative w-full min-h-screen flex flex-col overflow-hidden">
+    <section
+      className="relative w-full min-h-screen flex flex-col overflow-hidden"
+      style={{
+        backgroundImage: "linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed'
+      }}
+    >
       {/* Noise texture overlay */}
-      <div className="absolute inset-0 z-0 bg-noise opacity-30 pointer-events-none"></div>
+      <div className="absolute inset-0 z-0 bg-noise opacity-5 pointer-events-none"></div>
 
-      {/* Radial gradient glow */}
-      <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none">
-        <div className="w-[100vw] h-[100vw] bg-radial-glow from-rubi-red/10 via-rubi-crimson/5 to-transparent blur-[120px] animate-pulse-slow"></div>
+      {/* Humo rojo sutil - derecha */}
+      <div className="absolute top-0 right-0 w-[50%] h-full overflow-hidden pointer-events-none">
+        <div className="absolute top-[10%] right-[-10%] w-[700px] h-[700px] bg-rubi-red/15 rounded-full blur-[160px] animate-pulse-slow"></div>
+        <div className="absolute top-[35%] right-[5%] w-[500px] h-[500px] bg-rubi-red/10 rounded-full blur-[140px] animate-pulse-slow" style={{ animationDelay: '1.5s' }}></div>
       </div>
 
       {/* Main content */}
@@ -41,11 +50,16 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="font-display text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-[1.1] text-white mb-6"
+            className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tighter leading-[1.1] text-white mb-6"
           >
-            Transformamos empresas mediante{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-b from-rubi-red to-rubi-crimson">
-              tecnología, innovación y cultura organizacional
+            ELEVATING{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-rubi-red to-rubi-crimson">
+              TECH.
+            </span>
+            <br />
+            DEFINING{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-rubi-red to-rubi-crimson">
+              THE FUTURE.
             </span>
           </motion.h1>
 
@@ -54,57 +68,101 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-base sm:text-lg text-rubi-gray max-w-3xl mb-12 leading-relaxed"
+            className="text-base sm:text-lg text-gray-300 max-w-2xl mb-12 leading-relaxed"
           >
-            Brindamos soluciones tecnológicas, estratégicas y culturales que mejoran el rendimiento, la seguridad y el crecimiento de las organizaciones. Integramos metodologías ágiles, innovación y enfoque humano para generar resultados sostenibles.
+            Premium software development, design, and security solutions for global enterprises.
           </motion.p>
 
-          {/* CTA Buttons */}
+          {/* CTA Button */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex flex-col sm:flex-row gap-4 mb-16"
+            className="mb-20"
           >
-            <button
-              onClick={() => scrollToSection('#contacto')}
-              className="px-8 py-4 bg-rubi-red hover:bg-rubi-crimson text-white rounded-full font-semibold transition-all shadow-lg shadow-rubi-red/30 hover:shadow-rubi-red/50 hover:scale-105"
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => scrollToSection('#servicios')}
+              className="btn-premium-glass px-8 py-4 rounded-full font-semibold text-base uppercase tracking-wider"
             >
-              Comenzar ahora
-            </button>
-            <button
-              onClick={() => scrollToSection('#propuesta')}
-              className="px-8 py-4 bg-white/5 hover:bg-white/10 text-white border border-white/20 hover:border-rubi-red/50 rounded-full font-semibold transition-all backdrop-blur-md"
-            >
-              Ver propuesta
-            </button>
+              <span className="relative z-10">Explore Services</span>
+            </motion.button>
           </motion.div>
 
-          {/* Stats */}
+          {/* Stats Cards */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
-            className="grid grid-cols-3 gap-6 sm:gap-12 w-full max-w-2xl"
+            className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full max-w-4xl"
           >
-            <div className="text-center">
-              <div className="text-3xl sm:text-4xl font-bold text-white mb-2">8</div>
-              <div className="text-xs sm:text-sm text-rubi-gray uppercase tracking-wider">Ramas de Servicio</div>
-            </div>
-            <div className="text-center border-x border-white/10">
-              <div className="text-3xl sm:text-4xl font-bold text-white mb-2">ISO 27001</div>
-              <div className="text-xs sm:text-sm text-rubi-gray uppercase tracking-wider">Certificación</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl sm:text-4xl font-bold text-white mb-2">24/7</div>
-              <div className="text-xs sm:text-sm text-rubi-gray uppercase tracking-wider">Soporte Premium</div>
-            </div>
+            {/* Card 1 */}
+            <motion.div
+              whileHover={{ y: -5 }}
+              className="premium-glass-card rounded-2xl p-6 text-center group"
+            >
+              {/* Reflejo superior 3D */}
+              <div className="glass-reflection"></div>
+              <div className="glass-side-light"></div>
+
+              <div className="mb-4 flex justify-center relative z-10">
+                <div className="icon-glass-container p-3 rounded-xl">
+                  <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
+                    <path fillRule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clipRule="evenodd" />
+                  </svg>
+                </div>
+              </div>
+              <div className="text-4xl font-bold text-white mb-2 relative z-10">500+</div>
+              <div className="text-xs text-gray-400 uppercase tracking-wider relative z-10">Projects Completed</div>
+            </motion.div>
+
+            {/* Card 2 */}
+            <motion.div
+              whileHover={{ y: -5 }}
+              className="premium-glass-card rounded-2xl p-6 text-center group"
+            >
+              {/* Reflejo superior 3D */}
+              <div className="glass-reflection"></div>
+              <div className="glass-side-light"></div>
+
+              <div className="mb-4 flex justify-center relative z-10">
+                <div className="icon-glass-container p-3 rounded-xl">
+                  <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" />
+                  </svg>
+                </div>
+              </div>
+              <div className="text-4xl font-bold text-white mb-2 relative z-10">98%</div>
+              <div className="text-xs text-gray-400 uppercase tracking-wider relative z-10">Client Satisfaction</div>
+            </motion.div>
+
+            {/* Card 3 */}
+            <motion.div
+              whileHover={{ y: -5 }}
+              className="premium-glass-card rounded-2xl p-6 text-center group"
+            >
+              {/* Reflejo superior 3D */}
+              <div className="glass-reflection"></div>
+              <div className="glass-side-light"></div>
+
+              <div className="mb-4 flex justify-center relative z-10">
+                <div className="icon-glass-container p-3 rounded-xl">
+                  <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                </div>
+              </div>
+              <div className="text-4xl font-bold text-white mb-2 relative z-10">50+</div>
+              <div className="text-xs text-gray-400 uppercase tracking-wider relative z-10">Awards Won</div>
+            </motion.div>
           </motion.div>
         </div>
       </main>
 
       {/* Bottom gradient overlay */}
-      <div className="absolute bottom-0 w-full h-[40vh] bg-gradient-to-t from-rubi-black via-rubi-black to-transparent z-0 pointer-events-none"></div>
+      <div className="absolute bottom-0 w-full h-[40vh] bg-gradient-to-t from-black via-black/90 to-transparent z-0 pointer-events-none"></div>
 
       {/* Architectural grid */}
       <div
