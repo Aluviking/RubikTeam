@@ -58,7 +58,7 @@ const Projects = () => {
     : projects.filter(project => project.filter === activeFilter);
 
   return (
-    <section id="proyectos" className="relative w-full min-h-screen flex flex-col overflow-hidden bg-rubi-black py-40">
+    <section id="proyectos" className="relative w-full min-h-screen flex flex-col overflow-hidden bg-rubi-black py-32">
       {/* Background effects */}
       <div className="absolute inset-0 z-0 bg-noise opacity-30 pointer-events-none fixed"></div>
       <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none fixed">
@@ -66,9 +66,9 @@ const Projects = () => {
       </div>
 
       {/* Main content */}
-      <main className="relative z-10 flex-grow flex flex-col items-center px-6 w-full max-w-[1400px] mx-auto pb-24">
+      <main className="relative z-10 flex-grow flex flex-col items-center px-6 w-full max-w-7xl mx-auto pb-24">
         {/* Header */}
-        <div className="w-full flex flex-col md:flex-row justify-between items-end gap-12 mb-24 border-b border-white/5 pb-10">
+        <div className="w-full flex flex-col md:flex-row justify-between items-end gap-12 mb-20 border-b border-white/5 pb-10">
           <div className="flex flex-col gap-4">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -101,8 +101,8 @@ const Projects = () => {
                 onClick={() => setActiveFilter(filter)}
                 className={`px-4 py-2 rounded-full text-[12px] font-medium tracking-wide transition-all ${
                   activeFilter === filter
-                    ? 'btn-premium-glass'
-                    : 'btn-secondary-glass'
+                    ? 'btn-apple-primary'
+                    : 'btn-apple-secondary'
                 }`}
               >
                 {filter}
@@ -120,7 +120,7 @@ const Projects = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="group premium-glass-card relative w-full h-[500px] rounded-2xl overflow-hidden cursor-pointer hover:shadow-2xl hover:shadow-rubi-red/20 transition-all duration-500"
+              className="group premium-glass-card-apple relative w-full h-[500px] rounded-2xl overflow-hidden cursor-pointer hover:shadow-2xl hover:shadow-rubi-red/20 transition-all duration-500"
             >
               {/* Hover gradient overlay */}
               <div className="absolute inset-0 bg-gradient-to-br from-rubi-red/15 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
@@ -173,7 +173,7 @@ const Projects = () => {
               </div>
 
               {/* Card content */}
-              <div className="relative z-10 flex flex-col h-full p-8 md:p-10 justify-between">
+              <div className="relative z-10 flex flex-col h-full p-10 justify-between">
                 {/* Header */}
                 <div className="flex justify-between items-start">
                   <div className="flex flex-col gap-2">
@@ -235,7 +235,7 @@ const Projects = () => {
         {/* Load more button */}
         <div className="mt-20 flex items-center justify-center gap-4">
           <div className="h-[1px] w-20 bg-gradient-to-r from-transparent to-white/20"></div>
-          <button className="btn-secondary-glass px-6 py-3 rounded-full text-xs font-medium uppercase tracking-widest text-white/80 flex items-center gap-2">
+          <button className="btn-apple-secondary px-6 py-3 rounded-full text-xs font-medium uppercase tracking-widest text-white/80 flex items-center gap-2">
             Ver Más Proyectos
             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />

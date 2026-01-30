@@ -35,14 +35,14 @@ const Contact = () => {
         <div className="w-[80vw] h-[80vw] bg-radial-glow from-rubi-red/5 via-rubi-crimson/5 to-transparent blur-[120px] animate-pulse-slow translate-y-[-20%]"></div>
       </div>
 
-      <main className="relative z-10 flex-grow w-full max-w-7xl mx-auto px-6 pt-32 lg:pt-40 pb-20 grid lg:grid-cols-12 gap-12 lg:gap-24 items-center">
+      <main className="relative z-10 flex-grow w-full max-w-7xl mx-auto px-6 py-32 grid lg:grid-cols-12 gap-12 lg:gap-24 items-center">
         {/* Left Column - Info & Map */}
         <div className="lg:col-span-5 flex flex-col relative">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm mb-8 w-fit shadow-lg"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm mb-8 w-fit shadow-lg"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-rubi-red animate-pulse"></span>
             <span className="text-[10px] uppercase tracking-widest text-rubi-gray font-semibold">Canal Seguro</span>
@@ -69,47 +69,94 @@ const Contact = () => {
             Ayudamos a empresas a optimizar sus operaciones y potenciar sus ventas mediante soluciones tecnológicas, desarrollo web, ciberseguridad, automatización y estrategias digitales. Conéctate con nosotros para integrar, proteger y escalar tus sistemas.
           </motion.p>
 
-          {/* Map Visual */}
+          {/* Interactive Map Visual */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
-            className="premium-glass-card relative w-full h-[300px] perspective-1000 flex items-center justify-center rounded-2xl overflow-hidden group"
+            className="premium-glass-card-apple relative w-full h-[300px] perspective-1000 flex items-center justify-center rounded-2xl overflow-hidden group cursor-pointer"
+            whileHover={{ scale: 1.02 }}
+            onClick={() => window.open('https://maps.google.com/?q=Bogotá,Colombia', '_blank')}
           >
             {/* Animated grid background */}
-            <div className="absolute inset-[-50%] animate-pulse-slow" style={{
-              backgroundImage: 'linear-gradient(rgba(230, 0, 35, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(230, 0, 35, 0.1) 1px, transparent 1px)',
+            <div className="absolute inset-[-50%] animate-pulse-slow group-hover:animate-none transition-all" style={{
+              backgroundImage: 'linear-gradient(rgba(230, 0, 35, 0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(230, 0, 35, 0.15) 1px, transparent 1px)',
               backgroundSize: '40px 40px',
               transform: 'rotateX(60deg) scale(1.5)',
-              maskImage: 'radial-gradient(circle at center, black 30%, transparent 70%)',
-              WebkitMaskImage: 'radial-gradient(circle at center, black 30%, transparent 70%)'
+              maskImage: 'radial-gradient(circle at center, black 40%, transparent 80%)',
+              WebkitMaskImage: 'radial-gradient(circle at center, black 40%, transparent 80%)'
             }}></div>
 
             {/* Center marker */}
             <div className="relative preserve-3d animate-float">
-              <div className="w-4 h-4 bg-rubi-red rounded-full shadow-[0_0_30px_rgba(230,0,35,0.8)] relative z-10"></div>
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 border border-rubi-red/30 rounded-full animate-[spin_10s_linear_infinite]" style={{ transform: 'rotateX(70deg)' }}></div>
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 border border-white/10 rounded-full" style={{ animation: 'spin 15s linear infinite reverse', transform: 'rotateX(70deg)' }}></div>
-              <div className="absolute bottom-1/2 left-1/2 -translate-x-1/2 w-[1px] h-32 bg-gradient-to-t from-rubi-red to-transparent opacity-50"></div>
+              {/* Pulsing dot */}
+              <div className="relative w-4 h-4 z-10">
+                <span className="absolute inline-flex h-full w-full rounded-full bg-rubi-red opacity-75 animate-ping"></span>
+                <span className="relative inline-flex rounded-full h-4 w-4 bg-rubi-red shadow-[0_0_30px_rgba(230,0,35,1)]"></span>
+              </div>
+
+              {/* Rotating rings */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 border-2 border-rubi-red/40 rounded-full animate-[spin_10s_linear_infinite] group-hover:border-rubi-red/70 transition-colors" style={{ transform: 'rotateX(70deg)' }}></div>
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 border border-white/20 rounded-full group-hover:border-white/40 transition-colors" style={{ animation: 'spin 15s linear infinite reverse', transform: 'rotateX(70deg)' }}></div>
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 border border-rubi-red/10 rounded-full animate-[spin_20s_linear_infinite]" style={{ transform: 'rotateX(70deg)' }}></div>
+
+              {/* Vertical beam */}
+              <div className="absolute bottom-1/2 left-1/2 -translate-x-1/2 w-[2px] h-32 bg-gradient-to-t from-rubi-red via-rubi-red/50 to-transparent opacity-60 group-hover:opacity-100 transition-opacity"></div>
 
               {/* Location label */}
-              <div className="absolute top-[-40px] left-[40px] bg-rubi-dark/90 border border-white/10 px-3 py-1 rounded text-[10px] text-rubi-gray whitespace-nowrap backdrop-blur-md shadow-lg transform translate-z-10 animate-float" style={{ animationDelay: '1s' }}>
-                <span className="text-rubi-red mr-1">●</span> RUBIK HQ <br />
-                <span className="text-white font-mono">37.7749° N</span>
-              </div>
+              <motion.div
+                className="absolute top-[-50px] left-[50px] bg-rubi-dark/95 border border-rubi-red/30 px-3 py-2 rounded-lg text-[10px] text-rubi-gray whitespace-nowrap backdrop-blur-md shadow-lg animate-float group-hover:border-rubi-red/60 transition-all"
+                style={{ animationDelay: '1s' }}
+                whileHover={{ scale: 1.05 }}
+              >
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rubi-red opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-rubi-red"></span>
+                  </span>
+                  <span className="text-white font-semibold text-xs">RUBIK HQ</span>
+                </div>
+                <span className="text-white/70 font-mono text-[9px]">4.6097° N, 74.0817° W</span>
+                <div className="text-rubi-red/80 text-[9px] mt-1">Click para abrir en Maps</div>
+              </motion.div>
             </div>
+
+            {/* Radar sweep effect */}
+            <motion.div
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background: 'conic-gradient(from 0deg at 50% 50%, transparent 0deg, rgba(230, 0, 35, 0.1) 60deg, transparent 120deg)',
+              }}
+              animate={{ rotate: 360 }}
+              transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+            />
 
             {/* Status indicator */}
             <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end">
-              <div className="flex flex-col gap-1">
-                <span className="text-[10px] text-rubi-gray uppercase tracking-wider">Estado</span>
-                <span className="text-xs text-white font-mono">EN LÍNEA</span>
+              <div className="flex flex-col gap-1 bg-black/30 backdrop-blur-sm px-3 py-2 rounded-lg border border-white/10">
+                <span className="text-[9px] text-rubi-gray uppercase tracking-wider">Sistema</span>
+                <div className="flex items-center gap-2">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                  </span>
+                  <span className="text-xs text-white font-mono">EN LÍNEA</span>
+                </div>
               </div>
-              <svg className="w-5 h-5 text-rubi-red/50 animate-pulse" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
-              </svg>
+
+              <motion.div
+                className="bg-black/30 backdrop-blur-sm p-2 rounded-lg border border-white/10"
+                whileHover={{ scale: 1.1 }}
+              >
+                <svg className="w-5 h-5 text-rubi-red" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                </svg>
+              </motion.div>
             </div>
+
+            {/* Hover overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-rubi-red/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
           </motion.div>
 
           {/* Contact Info */}
@@ -155,7 +202,7 @@ const Contact = () => {
           transition={{ delay: 0.2 }}
           className="lg:col-span-7 relative"
         >
-          <form onSubmit={handleSubmit} className="premium-glass-card relative rounded-3xl p-8 md:p-10 overflow-hidden">
+          <form onSubmit={handleSubmit} className="premium-glass-card-apple relative rounded-3xl p-10 overflow-hidden">
             {/* Top gradient glow */}
             <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-gradient-to-b from-rubi-red/10 to-transparent blur-3xl pointer-events-none rounded-full transform translate-x-1/2 -translate-y-1/2"></div>
 
@@ -171,7 +218,7 @@ const Contact = () => {
             ></motion.div>
 
             {/* Name fields */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-6">
               <div className="space-y-2">
                 <label htmlFor="firstName" className="text-xs font-medium text-rubi-gray uppercase tracking-wider ml-1">
                   Nombre
@@ -280,7 +327,7 @@ const Contact = () => {
               </div>
               <button
                 type="submit"
-                className="btn-premium-glass group px-6 py-3 rounded-full text-sm font-semibold flex items-center gap-2"
+                className="btn-apple-primary group px-6 py-3 rounded-full text-sm font-semibold flex items-center gap-2"
               >
                 <span className="relative z-10">Transmitir Solicitud</span>
                 <svg className="w-[18px] h-[18px] relative z-10 group-hover:rotate-45 transition-transform duration-300" fill="currentColor" viewBox="0 0 20 20">

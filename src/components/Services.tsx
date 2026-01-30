@@ -129,19 +129,19 @@ const Services = () => {
   ];
 
   return (
-    <section id="servicios" className="section-padding bg-neutral-dark relative overflow-hidden">
+    <section id="servicios" className="py-32 px-6 bg-neutral-dark relative overflow-hidden">
       {/* Elementos decorativos de fondo */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-rubi-red/5 rounded-full blur-3xl"></div>
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-rubi-crimson/5 rounded-full blur-3xl"></div>
 
-      <div className="container-custom mx-auto relative z-10">
+      <div className="max-w-7xl mx-auto relative z-10">
         {/* Encabezado */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-20"
         >
           <motion.div
             initial={{ opacity: 0, scale: 0.5 }}
@@ -153,7 +153,7 @@ const Services = () => {
               NUESTROS SERVICIOS
             </span>
           </motion.div>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+          <h2 className="text-5xl md:text-6xl font-semibold mb-6 tracking-apple-tight">
             8 Ramas de <span className="text-transparent bg-clip-text bg-gradient-to-r from-rubi-red to-white">Servicio Integral</span>
           </h2>
           <p className="text-description text-gray-300 max-w-2xl mx-auto">
@@ -162,7 +162,7 @@ const Services = () => {
         </motion.div>
 
         {/* Grid de servicios */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {services.map((service, index) => (
             <motion.div
               key={index}
@@ -175,13 +175,10 @@ const Services = () => {
               className="group relative"
             >
               <div className={`
-                premium-glass-card rounded-2xl p-6 h-full
-                transition-all duration-500
-                ${selectedService === index ? 'scale-105 shadow-2xl shadow-rubi-red/30' : 'hover:scale-[1.02]'}
+                premium-glass-card-apple rounded-2xl p-8 h-full
+                transition-all duration-600 ease-apple
+                ${selectedService === index ? 'scale-[1.01] shadow-apple-xl shadow-rubi-red/20' : 'hover:scale-[1.01]'}
               `}>
-                {/* Reflejo superior 3D */}
-                <div className="glass-reflection"></div>
-                <div className="glass-side-light"></div>
 
                 {/* Glow effect en hover */}
                 <div className="absolute inset-0 bg-gradient-to-br from-rubi-red/20 via-rubi-red/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none"></div>
@@ -193,15 +190,15 @@ const Services = () => {
                 <div className="relative z-10">
                   {/* Icono con glass container */}
                   <motion.div
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                    transition={{ duration: 0.3 }}
-                    className="icon-glass-container inline-flex p-4 rounded-xl mb-4"
+                    whileHover={{ scale: 1.05, rotate: 2 }}
+                    transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+                    className="icon-container-apple inline-flex p-4 rounded-xl mb-4"
                   >
-                    <service.icon className="text-3xl text-white drop-shadow-[0_0_8px_rgba(230,0,35,0.6)]" />
+                    <service.icon className="text-3xl text-white" />
                   </motion.div>
 
                   {/* Título */}
-                  <h3 className="text-heading font-bold mb-3 text-white group-hover:text-rubi-red transition-colors duration-300">
+                  <h3 className="text-xl font-semibold mb-4 text-white group-hover:text-rubi-red transition-colors duration-600 ease-apple tracking-apple-normal">
                     {service.title}
                   </h3>
 
@@ -221,19 +218,19 @@ const Services = () => {
                         transition={{ delay: 0.05 * idx }}
                         className="flex items-start text-sm text-gray-300 group-hover:text-white transition-colors"
                       >
-                        <span className="text-rubi-red mr-2 mt-1 drop-shadow-[0_0_4px_rgba(230,0,35,0.8)] text-base">▸</span>
+                        <span className="text-rubi-red/70 mr-2 mt-1 text-base">▸</span>
                         {feature}
                       </motion.li>
                     ))}
                   </ul>
                 </div>
 
-                {/* Scan line decorativo */}
+                {/* Scan line decorativo - más sutil */}
                 <motion.div
                   initial={{ top: '-100%' }}
                   animate={{ top: '200%' }}
-                  transition={{ duration: 3, repeat: Infinity, ease: 'linear', delay: index * 0.2 }}
-                  className="absolute left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-rubi-red/50 to-transparent pointer-events-none"
+                  transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: index * 0.3 }}
+                  className="absolute left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-rubi-red/30 to-transparent pointer-events-none opacity-30"
                 ></motion.div>
               </div>
             </motion.div>
@@ -245,16 +242,17 @@ const Services = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mt-16"
+          className="text-center mt-20"
         >
           <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
             onClick={() => {
               const element = document.querySelector('#contacto');
               if (element) element.scrollIntoView({ behavior: 'smooth' });
             }}
-            className="btn-premium-glass px-8 py-4 rounded-full text-white font-semibold text-lg"
+            className="btn-apple-primary px-8 py-4 rounded-full text-white font-semibold text-lg"
           >
             <span className="relative z-10">Solicitar consultoría gratuita</span>
           </motion.button>

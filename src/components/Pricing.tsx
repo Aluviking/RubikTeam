@@ -119,7 +119,7 @@ const Pricing = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="relative z-20 mb-16 p-1 bg-white/5 rounded-full border border-white/10 flex items-center backdrop-blur-md"
+          className="relative z-20 mb-20 p-1 bg-white/5 rounded-full border border-white/10 flex items-center backdrop-blur-md"
         >
           <button
             onClick={() => setBillingPeriod('monthly')}
@@ -143,7 +143,7 @@ const Pricing = () => {
         </motion.div>
 
         {/* Pricing Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 w-full max-w-7xl items-start">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-7xl items-stretch">
           {plans.map((plan, index) => (
             <motion.div
               key={index}
@@ -151,9 +151,9 @@ const Pricing = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className={`group relative premium-glass-card rounded-2xl p-8 transition-all duration-500 ${
+              className={`group relative premium-glass-card-apple rounded-2xl p-8 min-h-[600px] flex flex-col transition-all duration-500 ${
                 plan.highlighted
-                  ? 'shadow-[0_0_0_2px_rgba(230,0,35,0.4),0_0_40px_-10px_rgba(230,0,35,0.5)] -translate-y-2 md:-translate-y-4 hover:-translate-y-6 scale-105'
+                  ? 'shadow-[0_0_0_2px_rgba(230,0,35,0.4),0_0_40px_-10px_rgba(230,0,35,0.5)] hover:-translate-y-2'
                   : 'hover:-translate-y-2 hover:shadow-2xl hover:shadow-rubi-red/20'
               }`}
             >
@@ -260,8 +260,8 @@ const Pricing = () => {
                   }}
                   className={`relative w-full py-3.5 rounded-lg text-xs font-bold tracking-wider transition-all overflow-hidden group/btn ${
                     plan.highlighted
-                      ? 'btn-premium-glass'
-                      : 'btn-secondary-glass'
+                      ? 'btn-apple-primary'
+                      : 'btn-apple-secondary'
                   }`}
                 >
                   <span className="relative z-10">{plan.buttonText}</span>
@@ -271,26 +271,6 @@ const Pricing = () => {
           ))}
         </div>
 
-        {/* Footer info */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mt-24 pt-8 border-t border-white/5 w-full max-w-7xl flex flex-col md:flex-row justify-between items-center gap-6 text-rubi-gray text-xs font-light"
-        >
-          <div className="flex items-center gap-2">
-            <svg className="w-[14px] h-[14px]" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
-            </svg>
-            <span>Infraestructura encriptada de extremo a extremo</span>
-          </div>
-          <div className="flex gap-8">
-            <span className="hover:text-white cursor-pointer transition-colors">Documentación</span>
-            <span className="hover:text-white cursor-pointer transition-colors">Estado API</span>
-            <span className="hover:text-white cursor-pointer transition-colors">Legal</span>
-          </div>
-          <div>© 2024 RUBIK Sistemas de Inteligencia</div>
-        </motion.div>
       </div>
     </section>
   );

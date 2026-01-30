@@ -40,13 +40,13 @@ const Header = () => {
           : 'bg-black/40 shadow-[0_10px_40px_rgba(0,0,0,0.3)]'
       }`}
         style={{
-          backdropFilter: isScrolled ? 'blur(60px) saturate(200%)' : 'blur(30px) saturate(150%)',
+          backdropFilter: isScrolled ? 'blur(40px) saturate(105%)' : 'blur(24px) saturate(102%)',
         }}
       >
         {/* Reflejo de cristal superior MUY visible */}
         <div
           className={`absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-white/30 via-white/10 to-transparent transition-opacity duration-700 ${
-            isScrolled ? 'opacity-20' : 'opacity-30'
+            isScrolled ? 'opacity-15' : 'opacity-20'
           }`}
         />
 
@@ -65,7 +65,8 @@ const Header = () => {
             {/* Logo minimalista con cristal */}
             <motion.div
               className="flex items-center gap-3 cursor-pointer group"
-              whileHover={{ scale: 1.02 }}
+              whileHover={{ scale: 1.01 }}
+              transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
               style={{ opacity: logoOpacity }}
             >
               <div className="relative">
@@ -83,7 +84,7 @@ const Header = () => {
                   />
 
                   {/* Reflejo de cristal superior SUPER visible */}
-                  <div className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-white/60 to-transparent" />
+                  <div className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-white/20 to-transparent" />
 
                   {/* Borde brillante */}
                   <div className="absolute inset-0 border border-white/30 rounded-lg" />
@@ -95,7 +96,7 @@ const Header = () => {
                   style={{
                     top: isScrolled ? '42px' : '50px',
                     height: isScrolled ? '40px' : '48px',
-                    opacity: 0.5,
+                    opacity: 0.2,
                     filter: 'blur(6px)',
                     transform: 'scaleY(-1)',
                     maskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, transparent 70%)',
@@ -131,7 +132,7 @@ const Header = () => {
                   transition={{ delay: i * 0.1 + 0.3 }}
                   className="relative group"
                 >
-                  <span className="text-[10px] font-light uppercase tracking-[0.3em] text-white/50 group-hover:text-white transition-all duration-500">
+                  <span className="text-xs font-normal uppercase tracking-apple-wider text-white/50 group-hover:text-white transition-all duration-600 ease-apple">
                     {item.name}
                   </span>
 
@@ -151,27 +152,28 @@ const Header = () => {
             <div className="hidden md:block">
               <motion.button
                 onClick={() => scrollToSection('#contacto')}
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
                 className="relative group"
               >
-                <div className={`px-8 py-3 rounded-full border-2 transition-all duration-500 ${
+                <div className={`px-8 py-3 rounded-full border transition-all duration-600 ease-apple ${
                   isScrolled
-                    ? 'border-rubi-red/70 bg-rubi-red/30'
+                    ? 'border-rubi-red/40 bg-rubi-red/30'
                     : 'border-white/40 bg-white/10'
                 }`}
                   style={{ backdropFilter: 'blur(20px)' }}
                 >
                   {/* Reflejo superior del botón */}
-                  <div className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-white/30 to-transparent rounded-full" />
+                  <div className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-white/15 to-transparent rounded-full" />
 
-                  <span className="relative z-10 text-[10px] font-medium uppercase tracking-[0.4em] text-white">
+                  <span className="relative z-10 text-xs font-medium uppercase tracking-apple-wide text-white">
                     Inicializar
                   </span>
                 </div>
 
                 {/* REFLEJO INVERTIDO DEL BOTÓN - MUY VISIBLE */}
                 <div
-                  className="absolute left-0 right-0 h-full rounded-full opacity-0 group-hover:opacity-60 transition-all duration-500"
+                  className="absolute left-0 right-0 h-full rounded-full opacity-0 group-hover:opacity-20 transition-all duration-600 ease-apple"
                   style={{
                     top: '48px',
                     background: 'linear-gradient(180deg, rgba(230,0,35,0.4) 0%, transparent 100%)',
@@ -198,7 +200,7 @@ const Header = () => {
       {/* REFLEJO COMPLETO DEL HEADER - MUY VISIBLE */}
       <div
         className={`absolute left-0 right-0 mx-4 rounded-2xl transition-all duration-700 pointer-events-none ${
-          isScrolled ? 'opacity-40' : 'opacity-25'
+          isScrolled ? 'opacity-15' : 'opacity-10'
         }`}
         style={{
           top: isScrolled ? '88px' : '96px',

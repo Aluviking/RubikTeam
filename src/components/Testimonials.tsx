@@ -55,7 +55,7 @@ const Testimonials = () => {
         </div>
 
         {/* Testimonials Grid */}
-        <div className="w-full max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+        <div className="w-full max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={index}
@@ -63,7 +63,7 @@ const Testimonials = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.15 }}
-              className="group premium-glass-card relative rounded-2xl p-6 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-rubi-red/20"
+              className="group premium-glass-card-apple relative rounded-2xl p-8 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-rubi-red/20"
             >
               {/* Left glow accent */}
               <div className="absolute left-0 top-1/4 w-1 h-1/2 bg-gradient-to-b from-transparent via-rubi-red to-transparent opacity-0 group-hover:opacity-70 blur-sm transition-opacity duration-500"></div>

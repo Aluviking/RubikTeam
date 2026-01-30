@@ -1,35 +1,7 @@
 import { motion } from 'framer-motion';
-import { FaLinkedin, FaGithub, FaTwitter, FaInstagram, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-
-  const quickLinks = [
-    { name: 'Inicio', href: '#inicio' },
-    { name: 'Propuesta', href: '#propuesta' },
-    { name: 'Planes', href: '#planes' },
-    { name: 'Proyectos', href: '#proyectos' },
-    { name: 'Testimonios', href: '#testimonios' },
-    { name: 'Contacto', href: '#contacto' }
-  ];
-
-  const services = [
-    'Desarrollo Web & Integraciones',
-    'Ciberseguridad ISO 27001',
-    'Automatización & Sistemas',
-    'Consultoría Estratégica',
-    'Marketing Digital',
-    'Diseño Gráfico & Multimedia',
-    'Diseño Industrial',
-    'Diseño Arquitectónico'
-  ];
-
-  const socialMedia = [
-    { icon: FaLinkedin, link: '#', name: 'LinkedIn' },
-    { icon: FaGithub, link: '#', name: 'GitHub' },
-    { icon: FaTwitter, link: '#', name: 'Twitter' },
-    { icon: FaInstagram, link: '#', name: 'Instagram' }
-  ];
 
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
@@ -39,213 +11,132 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-white relative overflow-hidden border-t border-neutral-dark/10">
-      <div className="container-custom mx-auto px-4 md:px-8 py-12 sm:py-16 relative z-10">
-        {/* Sección principal */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12 mb-8 sm:mb-12">
-          {/* Columna 1: Logo y descripción */}
+    <footer className="relative w-full bg-rubi-black border-t border-white/5">
+      {/* Background effects */}
+      <div className="absolute inset-0 z-0 bg-noise opacity-30 pointer-events-none"></div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-6 py-20">
+        {/* Main Footer Content */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-20">
+
+          {/* Column 1: Brand */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="space-y-4"
+            className="space-y-6"
           >
-            <div className="flex items-center gap-3 mb-4">
-              <div className="relative w-10 h-10">
+            <div className="flex items-center gap-3">
+              <div className="relative w-10 h-10 rounded-lg overflow-hidden">
                 <img
-                  src="/img/logo.jpg"
-                  alt="RUBIK Logo"
-                  className="w-full h-full object-contain"
+                  src={`${import.meta.env.BASE_URL}img/logo.jpg`}
+                  alt="RUBIK"
+                  className="w-full h-full object-cover"
                 />
               </div>
-              <span className="text-2xl font-logo font-black text-rubi-black" style={{ letterSpacing: '0.02em' }}>RUBIK</span>
+              <span className="text-2xl font-display font-semibold tracking-apple-wide text-white">RUBIK</span>
             </div>
-            <p className="text-sm text-gray-600 leading-relaxed">
-              Tu aliado tecnológico para evolucionar, innovar y vender más. Transformación digital con resultados reales de RUBIK.
+            <p className="text-sm text-rubi-gray leading-relaxed max-w-sm">
+              Sistemas de Inteligencia. Tu aliado tecnológico para evolucionar, innovar y vender más.
             </p>
-            <div className="flex space-x-3 pt-4">
-              {socialMedia.map((social, index) => (
-                <motion.a
-                  key={index}
-                  href={social.link}
-                  whileHover={{ scale: 1.1, y: -3 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="p-3 bg-gray-100 rounded-lg border border-gray-200 hover:border-rubi-red hover:bg-rubi-red/5 transition-all text-gray-600 hover:text-rubi-red"
-                  aria-label={social.name}
-                >
-                  <social.icon className="text-xl" />
-                </motion.a>
-              ))}
+            <div className="flex items-center gap-2 text-xs text-rubi-gray">
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
+              </svg>
+              <span>Infraestructura encriptada extremo a extremo</span>
             </div>
           </motion.div>
 
-          {/* Columna 2: Enlaces rápidos */}
+          {/* Column 2: Quick Links */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
           >
-            <h3 className="text-lg font-bold text-rubi-black mb-4 sm:mb-6">Enlaces Rápidos</h3>
-            <ul className="space-y-2 sm:space-y-3">
-              {quickLinks.map((link, index) => (
+            <h3 className="text-sm font-semibold text-white uppercase tracking-apple-wide mb-6">Navegación</h3>
+            <ul className="space-y-3">
+              {['Inicio', 'Propuesta', 'Servicios', 'Planes', 'Proyectos', 'Testimonios', 'Contacto'].map((item, index) => (
                 <li key={index}>
-                  <motion.a
-                    href={link.href}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      scrollToSection(link.href);
-                    }}
-                    whileHover={{ x: 5 }}
-                    className="text-sm text-gray-600 hover:text-rubi-red transition-colors cursor-pointer flex items-center"
+                  <button
+                    onClick={() => scrollToSection(`#${item.toLowerCase()}`)}
+                    className="text-sm text-rubi-gray hover:text-white transition-colors duration-300 flex items-center gap-2 group"
                   >
-                    <span className="text-rubi-red mr-2">▸</span>
-                    {link.name}
-                  </motion.a>
+                    <span className="text-rubi-red/50 group-hover:text-rubi-red transition-colors">▸</span>
+                    {item}
+                  </button>
                 </li>
               ))}
             </ul>
           </motion.div>
 
-          {/* Columna 3: Servicios */}
+          {/* Column 3: Legal & Contact */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            <h3 className="text-lg font-bold text-rubi-black mb-4 sm:mb-6">Servicios</h3>
-            <ul className="space-y-2 sm:space-y-3">
-              {services.map((service, index) => (
+            <h3 className="text-sm font-semibold text-white uppercase tracking-apple-wide mb-6">Legal</h3>
+            <ul className="space-y-3 mb-8">
+              {['Documentación', 'Estado API', 'Política de Privacidad', 'Términos y Condiciones'].map((item, index) => (
                 <li key={index}>
-                  <motion.div
-                    whileHover={{ x: 5 }}
-                    className="text-sm text-gray-600 hover:text-rubi-red transition-colors flex items-center"
+                  <a
+                    href="#"
+                    className="text-sm text-rubi-gray hover:text-white transition-colors duration-300"
                   >
-                    <span className="text-rubi-red mr-2">✓</span>
-                    {service}
-                  </motion.div>
+                    {item}
+                  </a>
                 </li>
               ))}
             </ul>
-          </motion.div>
 
-          {/* Columna 4: Contacto */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3 }}
-          >
-            <h3 className="text-lg font-bold text-rubi-black mb-4 sm:mb-6">Contacto</h3>
-            <ul className="space-y-3 sm:space-y-4">
-              <li>
-                <a
-                  href="mailto:contacto@rubi.com"
-                  className="text-sm text-gray-600 hover:text-rubi-red transition-colors flex items-start"
-                >
-                  <FaEnvelope className="text-rubi-red mr-3 mt-1 flex-shrink-0" />
-                  <span>contacto@rubi.com</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="tel:+573001234567"
-                  className="text-sm text-gray-600 hover:text-rubi-red transition-colors flex items-start"
-                >
-                  <FaPhone className="text-rubi-red mr-3 mt-1 flex-shrink-0" />
-                  <span>+57 300 123 4567</span>
-                </a>
-              </li>
-              <li className="text-sm text-gray-600 flex items-start">
-                <FaMapMarkerAlt className="text-rubi-red mr-3 mt-1 flex-shrink-0" />
-                <span>Bogotá, Colombia</span>
-              </li>
-            </ul>
-
-            {/* Newsletter */}
-            <div className="mt-6">
-              <h4 className="text-sm font-semibold text-rubi-black mb-3">Newsletter</h4>
-              <div className="flex">
-                <input
-                  type="email"
-                  placeholder="Tu email"
-                  className="flex-1 px-4 py-2 bg-gray-50 border border-gray-200 rounded-l-lg text-rubi-black focus:outline-none focus:border-rubi-red transition-colors text-sm"
-                />
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-4 py-2 bg-gradient-to-r from-rubi-red to-rubi-crimson text-white rounded-r-lg font-semibold"
-                >
-                  →
-                </motion.button>
+            <div className="space-y-3">
+              <div className="flex items-center gap-2 text-xs">
+                <span className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-rubi-gray">
+                  ISO 27001
+                </span>
+                <span className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-rubi-gray">
+                  Certmind
+                </span>
               </div>
             </div>
           </motion.div>
         </div>
 
-        {/* Separador */}
-        <div className="border-t border-gray-200 mb-6 sm:mb-8"></div>
+        {/* Bottom Bar */}
+        <div className="border-t border-white/5 pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <motion.p
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              className="text-xs text-rubi-gray"
+            >
+              © {currentYear} RUBIK Sistemas de Inteligencia. Todos los derechos reservados.
+            </motion.p>
 
-        {/* Sección inferior */}
-        <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 text-center md:text-left">
-          {/* Copyright */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-xs sm:text-sm text-gray-500"
-          >
-            © {currentYear} RUBIK. Todos los derechos reservados.
-          </motion.div>
-
-          {/* Enlaces legales */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="flex flex-wrap justify-center gap-4 sm:gap-6 text-xs sm:text-sm"
-          >
-            <a href="#" className="text-gray-500 hover:text-rubi-red transition-colors">
-              Política de Privacidad
-            </a>
-            <a href="#" className="text-gray-500 hover:text-rubi-red transition-colors">
-              Términos y Condiciones
-            </a>
-            <a href="#" className="text-gray-500 hover:text-rubi-red transition-colors">
-              Cookies
-            </a>
-          </motion.div>
-
-          {/* Certificaciones */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="flex items-center gap-2 text-xs sm:text-sm text-gray-500"
-          >
-            <span className="px-3 py-1 bg-gray-100 border border-gray-200 rounded-full text-xs">
-              ISO 27001
-            </span>
-            <span className="px-3 py-1 bg-gray-100 border border-gray-200 rounded-full text-xs">
-              Certmind
-            </span>
-          </motion.div>
+            <motion.p
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              className="text-xs text-rubi-gray"
+            >
+              Bogotá, Colombia
+            </motion.p>
+          </div>
         </div>
+      </div>
 
-        {/* Mensaje adicional */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-gray-200"
-        >
-          <p className="text-xs sm:text-sm text-gray-500">
-            Desarrollado con{' '}
-            <span className="text-rubi-red">♥</span>{' '}
-            usando React, TypeScript, Tailwind CSS y Framer Motion
-          </p>
-        </motion.div>
+      {/* Bottom line effect */}
+      <div className="absolute bottom-0 w-full h-[1px] bg-white/5 z-20">
+        <div className="absolute top-0 left-0 w-full h-full">
+          <motion.div
+            animate={{ x: ['-100%', '100%'] }}
+            transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+            className="w-[20%] h-full bg-gradient-to-r from-transparent via-rubi-red to-transparent opacity-50"
+          />
+        </div>
       </div>
     </footer>
   );

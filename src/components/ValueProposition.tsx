@@ -11,7 +11,7 @@ const ValueProposition = () => {
       {/* Main content */}
       <div className="relative z-10 flex flex-col px-6">
         {/* Header */}
-        <div className="text-center max-w-4xl mx-auto mb-24">
+        <div className="text-center max-w-4xl mx-auto mb-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -27,7 +27,7 @@ const ValueProposition = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="font-display text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-[1.1] text-white mb-6"
+            className="font-display text-5xl md:text-6xl lg:text-7xl font-semibold tracking-apple-tight leading-[1.1] text-white mb-6"
           >
             PROPUESTA DE VALOR<br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-rubi-red via-white to-rubi-red animate-pulse-slow">
@@ -47,15 +47,15 @@ const ValueProposition = () => {
         </div>
 
         {/* Value Cards Grid */}
-        <div className="w-full max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 perspective-2000 mb-24">
+        <div className="w-full max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 perspective-2000 mb-20">
           {/* Card 1 - Cognitive Speed */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0 }}
-            whileHover={{ y: -8 }}
-            className="premium-glass-card group relative h-[420px] rounded-2xl p-8 flex flex-col justify-between overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-rubi-red/20"
+            transition={{ delay: 0, duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+            whileHover={{ y: -4 }}
+            className="premium-glass-card-apple group relative min-h-[440px] rounded-2xl p-10 flex flex-col justify-between overflow-hidden"
           >
             {/* Left glow accent */}
             <div className="absolute left-0 top-1/3 w-1 h-1/3 bg-gradient-to-b from-transparent via-rubi-red to-transparent opacity-0 group-hover:opacity-70 blur-sm transition-opacity duration-500"></div>
@@ -86,7 +86,7 @@ const ValueProposition = () => {
                   <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
                 </svg>
               </div>
-              <h3 className="text-2xl font-display font-semibold text-white mb-2 group-hover:text-rubi-red transition-colors duration-300">
+              <h3 className="text-2xl font-display font-medium text-white mb-2 group-hover:text-rubi-red transition-colors duration-600 ease-apple tracking-apple-normal">
                 Transformación Digital
               </h3>
               <p className="text-sm text-rubi-gray leading-relaxed">
@@ -100,19 +100,19 @@ const ValueProposition = () => {
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            whileHover={{ y: -8 }}
-            className="premium-glass-card group relative h-[420px] rounded-2xl p-8 flex flex-col justify-between overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-rubi-red/20"
+            transition={{ delay: 0.1, duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+            whileHover={{ y: -4 }}
+            className="premium-glass-card-apple group relative min-h-[440px] rounded-2xl p-10 flex flex-col justify-between overflow-hidden"
           >
             {/* Left glow accent */}
             <div className="absolute left-0 top-1/3 w-1 h-1/3 bg-gradient-to-b from-transparent via-rubi-red to-transparent opacity-0 group-hover:opacity-70 blur-sm transition-opacity duration-500"></div>
 
-            {/* Scan line */}
+            {/* Scan line - muy sutil */}
             <motion.div
               initial={{ top: '-100%' }}
               animate={{ top: '200%' }}
-              transition={{ duration: 3.5, repeat: Infinity, ease: 'linear', delay: 0.5 }}
-              className="absolute left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-rubi-red/40 to-transparent pointer-events-none"
+              transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
+              className="absolute left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-rubi-red/20 to-transparent pointer-events-none opacity-10"
             ></motion.div>
             {/* Animated Icon - Layered Lock */}
             <div className="relative h-48 w-full flex items-center justify-center perspective-1000">
@@ -136,7 +136,7 @@ const ValueProposition = () => {
                   <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                 </svg>
               </div>
-              <h3 className="text-2xl font-display font-semibold text-white mb-2 group-hover:text-rubi-red transition-colors duration-300">
+              <h3 className="text-2xl font-display font-medium text-white mb-2 group-hover:text-rubi-red transition-colors duration-600 ease-apple tracking-apple-normal">
                 Ciberseguridad & Cumplimiento
               </h3>
               <p className="text-sm text-rubi-gray leading-relaxed">
@@ -150,9 +150,9 @@ const ValueProposition = () => {
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            whileHover={{ y: -8 }}
-            className="premium-glass-card group relative h-[420px] rounded-2xl p-8 flex flex-col justify-between overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-rubi-red/20"
+            transition={{ delay: 0.2, duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+            whileHover={{ y: -4 }}
+            className="premium-glass-card-apple group relative min-h-[440px] rounded-2xl p-10 flex flex-col justify-between overflow-hidden"
           >
             {/* Left glow accent */}
             <div className="absolute left-0 top-1/3 w-1 h-1/3 bg-gradient-to-b from-transparent via-rubi-red to-transparent opacity-0 group-hover:opacity-70 blur-sm transition-opacity duration-500"></div>
@@ -170,17 +170,17 @@ const ValueProposition = () => {
               <div className="relative z-10 flex gap-4 preserve-3d">
                 <motion.div
                   animate={{ height: ['64px', '96px', '64px'] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                   className="w-2 bg-gradient-to-t from-transparent via-white/20 to-transparent rounded-full"
                 />
                 <motion.div
                   animate={{ height: ['96px', '48px', '96px'] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
                   className="w-2 bg-gradient-to-t from-transparent via-rubi-red/50 to-transparent rounded-full"
                 />
                 <motion.div
                   animate={{ height: ['48px', '96px', '48px'] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
                   className="w-2 bg-gradient-to-t from-transparent via-white/20 to-transparent rounded-full"
                 />
               </div>
@@ -194,7 +194,7 @@ const ValueProposition = () => {
                   <path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM5 10a1 1 0 01-1 1H3a1 1 0 110-2h1a1 1 0 011 1zM8 16v-1h4v1a2 2 0 11-4 0zM12 14c.015-.34.208-.646.477-.859a4 4 0 10-4.954 0c.27.213.462.519.476.859h4.002z" />
                 </svg>
               </div>
-              <h3 className="text-2xl font-display font-semibold text-white mb-2 group-hover:text-rubi-red transition-colors duration-300">
+              <h3 className="text-2xl font-display font-medium text-white mb-2 group-hover:text-rubi-red transition-colors duration-600 ease-apple tracking-apple-normal">
                 Metodologías Ágiles & Automatización
               </h3>
               <p className="text-sm text-rubi-gray leading-relaxed">
@@ -209,7 +209,7 @@ const ValueProposition = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="w-full max-w-5xl mx-auto border-t border-white/5 pt-12 flex flex-col md:flex-row justify-between items-center gap-10"
+          className="w-full max-w-5xl mx-auto border-t border-white/5 pt-16 flex flex-col md:flex-row justify-between items-center gap-12"
         >
           <div className="flex flex-col items-center md:items-start gap-1">
             <span className="text-4xl font-display font-bold text-white tracking-tight">
