@@ -22,7 +22,8 @@
       "Bash(robocopy:*)",
       "Bash(powershell -Command:*)",
       "Bash(copy:*)",
-      "Bash(dir:*)"
+      "Bash(dir:*)",
+      "Bash(grep:*)"
     ]
   }
 }
