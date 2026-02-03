@@ -1,272 +1,60 @@
 import { motion } from 'framer-motion';
 import {
-  FaCode,
-  FaShieldAlt,
-  FaCogs,
-  FaChartLine,
-  FaBullhorn,
-  FaPalette,
-  FaCube,
-  FaBuilding
+  FaCode, FaShieldAlt, FaCogs, FaChartLine,
+  FaBullhorn, FaPalette, FaCube, FaBuilding
 } from 'react-icons/fa';
-import { useState } from 'react';
 
-interface Service {
-  icon: React.ElementType;
-  title: string;
-  description: string;
-  features: string[];
-}
+const services = [
+  { icon: FaCode, title: 'Transformación Digital', desc: 'Desarrollo Web, Apps, APIs y Cloud.', features: ['Desarrollo Web', 'Apps Empresariales', 'Integración APIs', 'Arquitectura Cloud'] },
+  { icon: FaShieldAlt, title: 'Ciberseguridad', desc: 'Protege tu infraestructura digital.', features: ['Auditorías de seguridad', 'Monitoreo 24/7', 'Respuesta a incidentes', 'ISO 27001'] },
+  { icon: FaCogs, title: 'Metodologías Ágiles', desc: 'Optimiza procesos con Scrum y PMO.', features: ['Scrum & Agile', 'Sprint Planning', 'PMO', 'Consultoría'] },
+  { icon: FaChartLine, title: 'Gestión Organizacional', desc: 'Liderazgo y estrategia empresarial.', features: ['Clima Laboral', 'Liderazgo', 'Gestión del Cambio', 'Estrategia'] },
+  { icon: FaBullhorn, title: 'Marketing Digital', desc: 'Campañas y posicionamiento digital.', features: ['B2B / B2C', 'Campañas Digitales', 'Email Marketing', 'Redes Sociales'] },
+  { icon: FaPalette, title: 'Diseño & Multimedia', desc: 'Identidad visual y branding.', features: ['Branding', 'Identidad Visual', 'Animación', 'Editorial'] },
+  { icon: FaCube, title: 'Diseño Industrial', desc: 'Modelado y prototipado profesional.', features: ['Modelado 2D/3D', 'Prototipado', 'Manufactura', 'Gestión'] },
+  { icon: FaBuilding, title: 'Diseño Arquitectónico', desc: 'Renders, planos y supervisión.', features: ['Renders 3D', 'Planos', 'Supervisión', 'Proyectos'] },
+];
 
 const Services = () => {
-  const [selectedService, setSelectedService] = useState<number | null>(null);
-
-  const services: Service[] = [
-    {
-      icon: FaCode,
-      title: 'Transformación Digital & Desarrollo',
-      description: 'Soluciones completas para modernizar empresas mediante software, automatización e infraestructura robusta.',
-      features: [
-        'Desarrollo Web Profesional',
-        'Aplicaciones Empresariales (Node, React, Vite)',
-        'Integración de APIs y Automatizaciones',
-        'Sistemas de Autenticación',
-        'Infraestructura Cloud (AWS, Azure, GCP)',
-        'Arquitectura Tecnológica'
-      ]
-    },
-    {
-      icon: FaShieldAlt,
-      title: 'Ciberseguridad ISO 27001',
-      description: 'Protegemos la información empresarial mediante estándares internacionales y auditorías especializadas.',
-      features: [
-        'Implementación ISO 27001',
-        'Auditoría Interna Certificada (Certmind)',
-        'Evaluación y Gestión de Riesgos',
-        'Hardening de Servidores',
-        'Concientización en Seguridad',
-        'Políticas de Gobierno Corporativo TI'
-      ]
-    },
-    {
-      icon: FaCogs,
-      title: 'Metodologías Ágiles & PMO',
-      description: 'Optimizamos procesos empresariales mediante Scrum, Agile y consultoría operativa.',
-      features: [
-        'Implementación Scrum y Agile',
-        'Formación de Equipos Ágiles',
-        'PMO Ágil',
-        'Sprint Planning y Retrospectivas',
-        'Consultoría en Eficiencia Operativa',
-        'Gestión de Proyectos'
-      ]
-    },
-    {
-      icon: FaChartLine,
-      title: 'Gestión Organizacional',
-      description: 'Acompañamos empresas en procesos humanos, liderazgo y crecimiento interno.',
-      features: [
-        'Cultura Organizacional',
-        'Diagnósticos de Clima y Cultura',
-        'Fortalecimiento de Equipos',
-        'Desarrollo de Liderazgo',
-        'Gestión del Cambio',
-        'Acompañamiento Estratégico'
-      ]
-    },
-    {
-      icon: FaBullhorn,
-      title: 'Marketing Estratégico',
-      description: 'Impulsamos el crecimiento comercial mediante estrategias inteligentes y contenido profesional.',
-      features: [
-        'Gerencia de Marketing',
-        'Estrategias de Posicionamiento B2B/B2C',
-        'Campañas Digitales Automatizadas',
-        'Email Marketing Segmentado',
-        'Gestión de Redes Sociales',
-        'Copywriting Corporativo'
-      ]
-    },
-    {
-      icon: FaPalette,
-      title: 'Diseño Gráfico & Multimedia',
-      description: 'Producción visual y creativa que fortalece el posicionamiento de marcas.',
-      features: [
-        'Branding Corporativo',
-        'Identidad Visual',
-        'Diseño Publicitario Digital y Físico',
-        'Animación, Video y Multimedia',
-        'Edición Profesional',
-        'Mockups y Presentaciones'
-      ]
-    },
-    {
-      icon: FaCube,
-      title: 'Diseño Industrial',
-      description: 'Desarrollo de productos, modelado 2D/3D y visualización profesional.',
-      features: [
-        'Conceptualización de Productos',
-        'Modelado 2D y 3D para Prototipado',
-        'Diseño Funcional y Ergonómico',
-        'Optimización para Manufactura',
-        'Propuestas Estéticas Alineadas',
-        'Gestión de Diseño'
-      ]
-    },
-    {
-      icon: FaBuilding,
-      title: 'Diseño Arquitectónico',
-      description: 'Diseño de espacios residenciales, comerciales e industriales con planificación integral.',
-      features: [
-        'Planificación Arquitectónica',
-        'Renderización y Visualización',
-        'Planos Técnicos Completos',
-        'Detallados Constructivos',
-        'Supervisión y Asesoría Técnica',
-        'Proyectos Interdisciplinarios'
-      ]
-    }
-  ];
-
   return (
-    <section id="servicios" className="py-32 px-6 bg-neutral-dark relative overflow-hidden">
-      {/* Elementos decorativos de fondo */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-rubi-red/5 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-rubi-crimson/5 rounded-full blur-3xl"></div>
-
-      <div className="max-w-7xl mx-auto relative z-10">
-        {/* Encabezado */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-20"
-        >
-          <motion.div
-            initial={{ opacity: 0, scale: 0.5 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            className="inline-block mb-4"
-          >
-            <span className="text-sm font-bold text-rubi-red bg-rubi-red/10 px-4 py-2 rounded-full border border-rubi-red/30">
-              NUESTROS SERVICIOS
-            </span>
+    <section id="servicios" className="relative bg-marble-900 py-16 sm:py-28 px-4 sm:px-6 marble-tex">
+      <div className="max-w-6xl mx-auto relative z-10">
+        <div className="text-center mb-16">
+          <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
+            <span className="label-section mb-5 block justify-center">Servicios</span>
           </motion.div>
-          <h2 className="text-5xl md:text-6xl font-semibold mb-6 tracking-apple-tight">
-            8 Ramas de <span className="text-transparent bg-clip-text bg-gradient-to-r from-rubi-red to-white">Servicio Integral</span>
-          </h2>
-          <p className="text-description text-gray-300 max-w-2xl mx-auto">
-            Transformamos organizaciones mediante soluciones tecnológicas, estratégicas y culturales. Integramos metodologías ágiles, ciberseguridad, desarrollo tecnológico, diseño y marketing para generar crecimiento sostenible.
-          </p>
-        </motion.div>
+          <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+            className="text-3xl sm:text-4xl md:text-5xl mb-4">
+            8 ramas de servicio
+          </motion.h2>
+          <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
+            className="text-[15px] text-white-faint max-w-md mx-auto">
+            Cobertura completa para tu transformación tecnológica.
+          </motion.p>
+        </div>
 
-        {/* Grid de servicios */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {services.map((service, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              onHoverStart={() => setSelectedService(index)}
-              onHoverEnd={() => setSelectedService(null)}
-              className="group relative"
-            >
-              <div className={`
-                premium-glass-card-apple rounded-2xl p-8 h-full
-                transition-all duration-600 ease-apple
-                ${selectedService === index ? 'scale-[1.01] shadow-apple-xl shadow-rubi-red/20' : 'hover:scale-[1.01]'}
-              `}>
-
-                {/* Glow effect en hover */}
-                <div className="absolute inset-0 bg-gradient-to-br from-rubi-red/20 via-rubi-red/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none"></div>
-
-                {/* Left glow accent */}
-                <div className="absolute left-0 top-1/4 w-1 h-1/2 bg-gradient-to-b from-transparent via-rubi-red to-transparent opacity-0 group-hover:opacity-70 blur-sm transition-opacity duration-500"></div>
-
-                {/* Contenido */}
-                <div className="relative z-10">
-                  {/* Icono con glass container */}
-                  <motion.div
-                    whileHover={{ scale: 1.05, rotate: 2 }}
-                    transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-                    className="icon-container-apple inline-flex p-4 rounded-xl mb-4"
-                  >
-                    <service.icon className="text-3xl text-white" />
-                  </motion.div>
-
-                  {/* Título */}
-                  <h3 className="text-xl font-semibold mb-4 text-white group-hover:text-rubi-red transition-colors duration-600 ease-apple tracking-apple-normal">
-                    {service.title}
-                  </h3>
-
-                  {/* Descripción */}
-                  <p className="text-description text-gray-300 mb-4 leading-relaxed">
-                    {service.description}
-                  </p>
-
-                  {/* Features */}
-                  <ul className="space-y-2">
-                    {service.features.map((feature, idx) => (
-                      <motion.li
-                        key={idx}
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.05 * idx }}
-                        className="flex items-start text-sm text-gray-300 group-hover:text-white transition-colors"
-                      >
-                        <span className="text-rubi-red/70 mr-2 mt-1 text-base">▸</span>
-                        {feature}
-                      </motion.li>
-                    ))}
-                  </ul>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {services.map((s, i) => (
+            <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+              transition={{ delay: i * 0.04 }}
+              className="card p-5 sm:p-7 group">
+              <div className="relative z-10">
+                <div className="w-11 h-11 rounded-xl bg-white/[0.04] border border-white/[0.06] flex items-center justify-center mb-5 group-hover:border-ruby/20 transition-all duration-500">
+                  <s.icon className="text-ruby/50 text-lg group-hover:text-ruby/80 transition-colors duration-500" />
                 </div>
-
-                {/* Scan line decorativo - más sutil */}
-                <motion.div
-                  initial={{ top: '-100%' }}
-                  animate={{ top: '200%' }}
-                  transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: index * 0.3 }}
-                  className="absolute left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-rubi-red/30 to-transparent pointer-events-none opacity-30"
-                ></motion.div>
+                <h3 className="text-[15px] font-semibold text-white mb-2">{s.title}</h3>
+                <p className="text-[12px] text-white-faint/60 font-light mb-5">{s.desc}</p>
+                <ul className="space-y-2.5">
+                  {s.features.map((f, idx) => (
+                    <li key={idx} className="flex items-center gap-2.5 text-[12px] text-white-dim font-light">
+                      <span className="w-1.5 h-1.5 rounded-full bg-ruby/70 flex-shrink-0" />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </motion.div>
           ))}
-        </div>
-
-        {/* Call to action */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mt-20"
-        >
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-            onClick={() => {
-              const element = document.querySelector('#contacto');
-              if (element) element.scrollIntoView({ behavior: 'smooth' });
-            }}
-            className="btn-apple-primary px-8 py-4 rounded-full text-white font-semibold text-lg"
-          >
-            <span className="relative z-10">Solicitar consultoría gratuita</span>
-          </motion.button>
-        </motion.div>
-      </div>
-
-      {/* Bottom line effect */}
-      <div className="absolute bottom-0 w-full h-[1px] bg-white/5 z-20">
-        <div className="absolute top-0 left-0 w-full h-full">
-          <motion.div
-            animate={{ x: ['-100%', '100%'] }}
-            transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-            className="w-[20%] h-full bg-gradient-to-r from-transparent via-rubi-red to-transparent opacity-50"
-          />
         </div>
       </div>
     </section>

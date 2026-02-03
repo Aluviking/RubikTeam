@@ -1,141 +1,51 @@
-import { motion } from 'framer-motion';
-
 const Footer = () => {
-  const currentYear = new Date().getFullYear();
-
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+  const year = new Date().getFullYear();
+  const go = (id: string) => document.querySelector(id)?.scrollIntoView({ behavior: 'smooth' });
 
   return (
-    <footer className="relative w-full bg-rubi-black border-t border-white/5">
-      {/* Background effects */}
-      <div className="absolute inset-0 z-0 bg-noise opacity-30 pointer-events-none"></div>
-
-      <div className="relative z-10 max-w-7xl mx-auto px-6 py-20">
-        {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-20">
-
-          {/* Column 1: Brand */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="space-y-6"
-          >
-            <div className="flex items-center gap-3">
-              <div className="relative w-10 h-10 rounded-lg overflow-hidden">
-                <img
-                  src={`${import.meta.env.BASE_URL}img/logo.jpg`}
-                  alt="RUBIK"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <span className="text-2xl font-display font-semibold tracking-apple-wide text-white">RUBIK</span>
+    <footer className="bg-marble-900 border-t border-white/[0.04] px-4 sm:px-6">
+      <div className="max-w-6xl mx-auto py-14">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+          <div className="md:col-span-2">
+            <div className="flex items-center gap-2.5 mb-4">
+              <img src={`${import.meta.env.BASE_URL}img/logo.jpg`} alt="RUBIK" className="w-7 h-7 rounded-lg object-cover" />
+              <span className="text-[14px] font-semibold tracking-tight text-white">RUBIK</span>
             </div>
-            <p className="text-sm text-rubi-gray leading-relaxed max-w-sm">
-              Sistemas de Inteligencia. Tu aliado tecnológico para evolucionar, innovar y vender más.
+            <p className="text-[13px] text-white-faint font-light leading-relaxed max-w-xs">
+              Tecnología, ciberseguridad y transformación digital para empresas que buscan liderar.
             </p>
-            <div className="flex items-center gap-2 text-xs text-rubi-gray">
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
-              </svg>
-              <span>Infraestructura encriptada extremo a extremo</span>
-            </div>
-          </motion.div>
+          </div>
 
-          {/* Column 2: Quick Links */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-          >
-            <h3 className="text-sm font-semibold text-white uppercase tracking-apple-wide mb-6">Navegación</h3>
-            <ul className="space-y-3">
-              {['Inicio', 'Propuesta', 'Servicios', 'Planes', 'Proyectos', 'Testimonios', 'Contacto'].map((item, index) => (
-                <li key={index}>
-                  <button
-                    onClick={() => scrollToSection(`#${item.toLowerCase()}`)}
-                    className="text-sm text-rubi-gray hover:text-white transition-colors duration-300 flex items-center gap-2 group"
-                  >
-                    <span className="text-rubi-red/50 group-hover:text-rubi-red transition-colors">▸</span>
-                    {item}
-                  </button>
+          <div>
+            <h4 className="text-[11px] text-white-dim uppercase tracking-widest mb-4 font-medium">Navegación</h4>
+            <ul className="space-y-2.5">
+              {[['Inicio', '#inicio'], ['Servicios', '#servicios'], ['Proyectos', '#proyectos'], ['Planes', '#planes'], ['Contacto', '#contacto']].map(([label, id]) => (
+                <li key={label}>
+                  <button onClick={() => go(id)} className="text-[13px] text-white-faint hover:text-white-soft transition-colors duration-300">{label}</button>
                 </li>
               ))}
             </ul>
-          </motion.div>
+          </div>
 
-          {/* Column 3: Legal & Contact */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-          >
-            <h3 className="text-sm font-semibold text-white uppercase tracking-apple-wide mb-6">Legal</h3>
-            <ul className="space-y-3 mb-8">
-              {['Documentación', 'Estado API', 'Política de Privacidad', 'Términos y Condiciones'].map((item, index) => (
-                <li key={index}>
-                  <a
-                    href="#"
-                    className="text-sm text-rubi-gray hover:text-white transition-colors duration-300"
-                  >
-                    {item}
-                  </a>
-                </li>
+          <div>
+            <h4 className="text-[11px] text-white-dim uppercase tracking-widest mb-4 font-medium">Legal</h4>
+            <ul className="space-y-2.5 mb-6">
+              {['Política de Privacidad', 'Términos de Servicio'].map((item) => (
+                <li key={item}><a href="#" className="text-[13px] text-white-faint hover:text-white-soft transition-colors duration-300">{item}</a></li>
               ))}
             </ul>
-
-            <div className="space-y-3">
-              <div className="flex items-center gap-2 text-xs">
-                <span className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-rubi-gray">
-                  ISO 27001
-                </span>
-                <span className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-rubi-gray">
-                  Certmind
-                </span>
-              </div>
+            <div className="flex gap-2">
+              <span className="tag">ISO 27001</span>
+              <span className="tag">Certmind</span>
             </div>
-          </motion.div>
-        </div>
-
-        {/* Bottom Bar */}
-        <div className="border-t border-white/5 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <motion.p
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              className="text-xs text-rubi-gray"
-            >
-              © {currentYear} RUBIK Sistemas de Inteligencia. Todos los derechos reservados.
-            </motion.p>
-
-            <motion.p
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              className="text-xs text-rubi-gray"
-            >
-              Bogotá, Colombia
-            </motion.p>
           </div>
         </div>
-      </div>
 
-      {/* Bottom line effect */}
-      <div className="absolute bottom-0 w-full h-[1px] bg-white/5 z-20">
-        <div className="absolute top-0 left-0 w-full h-full">
-          <motion.div
-            animate={{ x: ['-100%', '100%'] }}
-            transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-            className="w-[20%] h-full bg-gradient-to-r from-transparent via-rubi-red to-transparent opacity-50"
-          />
+        <div className="divider mb-6" />
+
+        <div className="flex flex-col md:flex-row justify-between items-center gap-3">
+          <p className="text-[12px] text-white-faint/50">© {year} RUBIK Intelligence. Bogotá, Colombia.</p>
+          <p className="text-[11px] font-mono text-ruby/20">v2.0.1</p>
         </div>
       </div>
     </footer>

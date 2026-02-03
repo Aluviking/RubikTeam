@@ -23,7 +23,10 @@
       "Bash(powershell -Command:*)",
       "Bash(copy:*)",
       "Bash(dir:*)",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Bash(npx sharp-cli:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npx vite build:*)"
     ]
   }
 }

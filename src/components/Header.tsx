@@ -1,216 +1,178 @@
-import { useState, useEffect } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { useState, useEffect, useRef } from 'react';
 
 const Header = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const { scrollY } = useScroll();
+  const [query, setQuery] = useState('');
+  const [menuOpen, setMenuOpen] = useState(false);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  const headerY = useTransform(scrollY, [0, 100], [0, -10]);
-  const logoOpacity = useTransform(scrollY, [0, 50], [1, 0.7]);
-
+  // Floating particles
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let animId: number;
+    const particles: { x: number; y: number; vx: number; vy: number; r: number; o: number }[] = [];
+
+    const resize = () => {
+      canvas.width = canvas.offsetWidth * window.devicePixelRatio;
+      canvas.height = canvas.offsetHeight * window.devicePixelRatio;
+      ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    resize();
+    window.addEventListener('resize', resize);
+
+    // Create particles
+    const w = () => canvas.offsetWidth;
+    const h = () => canvas.offsetHeight;
+    for (let i = 0; i < 24; i++) {
+      particles.push({
+        x: Math.random() * w(),
+        y: Math.random() * h(),
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.2,
+        r: Math.random() * 1.5 + 0.4,
+        o: Math.random() * 0.25 + 0.06,
+      });
+    }
+
+    const draw = () => {
+      ctx.clearRect(0, 0, w(), h());
+      for (const p of particles) {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0) p.x = w();
+        if (p.x > w()) p.x = 0;
+        if (p.y < 0) p.y = h();
+        if (p.y > h()) p.y = 0;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(225, 29, 72, ${p.o})`;
+        ctx.fill();
+      }
+
+      // Draw faint connecting lines between nearby particles
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 120) {
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `rgba(225, 29, 72, ${0.08 * (1 - dist / 120)})`;
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        }
+      }
+
+      animId = requestAnimationFrame(draw);
+    };
+    draw();
+
+    return () => {
+      cancelAnimationFrame(animId);
+      window.removeEventListener('resize', resize);
+    };
   }, []);
 
-  const navItems = [
-    { name: 'Inicio', href: '#inicio' },
-    { name: 'Propuesta', href: '#propuesta' },
-    { name: 'Planes', href: '#planes' },
-    { name: 'Proyectos', href: '#proyectos' },
-    { name: 'Testimonios', href: '#testimonios' },
-  ];
-
-  const scrollToSection = (href: string) => {
-    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+  const go = (id: string) => {
+    document.querySelector(id)?.scrollIntoView({ behavior: 'smooth' });
+    setQuery('');
   };
 
+  const sections = [
+    { id: '#servicios', label: 'Servicios' },
+    { id: '#proyectos', label: 'Proyectos' },
+    { id: '#planes', label: 'Planes' },
+    { id: '#contacto', label: 'Contacto' },
+  ];
+
+  const filtered = query.trim()
+    ? sections.filter(s => s.label.toLowerCase().includes(query.toLowerCase()))
+    : [];
+
   return (
-    <motion.header
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-700"
-      style={{ y: headerY }}
-    >
-      {/* Cristal principal con gradiente */}
-      <div className={`relative mx-4 mt-4 rounded-2xl overflow-hidden transition-all duration-700 ${
-        isScrolled
-          ? 'bg-black/95 shadow-[0_20px_80px_rgba(0,0,0,0.9)]'
-          : 'bg-black/40 shadow-[0_10px_40px_rgba(0,0,0,0.3)]'
-      }`}
-        style={{
-          backdropFilter: isScrolled ? 'blur(40px) saturate(105%)' : 'blur(24px) saturate(102%)',
-        }}
-      >
-        {/* Reflejo de cristal superior MUY visible */}
-        <div
-          className={`absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-white/30 via-white/10 to-transparent transition-opacity duration-700 ${
-            isScrolled ? 'opacity-15' : 'opacity-20'
-          }`}
-        />
+    <header className="fixed top-0 left-0 right-0 z-50 bg-marble-900/50 backdrop-blur-3xl border-b border-white/[0.07] transition-all duration-700 shadow-[0_4px_30px_rgba(0,0,0,0.3),0_1px_0_rgba(255,255,255,0.04)_inset]">
+      {/* Particle canvas */}
+      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" />
 
-        {/* Borde brillante superior */}
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/50 to-transparent" />
-
-        {/* Borde inferior con gradiente rojo */}
-        <div className={`absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-rubi-red to-transparent transition-all duration-700 ${
-          isScrolled ? 'opacity-100 shadow-[0_0_20px_rgba(230,0,35,0.5)]' : 'opacity-0'
-        }`} />
-
-        {/* Contenido del nav */}
-        <nav className="relative px-8 py-5">
-          <div className="flex items-center justify-between max-w-7xl mx-auto">
-
-            {/* Logo minimalista con cristal */}
-            <motion.div
-              className="flex items-center gap-3 cursor-pointer group"
-              whileHover={{ scale: 1.01 }}
-              transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-              style={{ opacity: logoOpacity }}
-            >
-              <div className="relative">
-                {/* Logo con efecto de cristal */}
-                <div className={`relative rounded-lg overflow-hidden transition-all duration-500 ${
-                  isScrolled ? 'w-10 h-10' : 'w-12 h-12'
-                }`}>
-                  {/* Gradiente de fondo */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-rubi-red/60 via-rubi-red/30 to-transparent" />
-
-                  <img
-                    src={`${import.meta.env.BASE_URL}img/logo.jpg`}
-                    alt="RUBIK"
-                    className="w-full h-full object-cover"
-                  />
-
-                  {/* Reflejo de cristal superior SUPER visible */}
-                  <div className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-white/20 to-transparent" />
-
-                  {/* Borde brillante */}
-                  <div className="absolute inset-0 border border-white/30 rounded-lg" />
-                </div>
-
-                {/* REFLEJO INVERTIDO DEBAJO - MUY VISIBLE */}
-                <div
-                  className="absolute left-0 right-0 rounded-lg overflow-hidden"
-                  style={{
-                    top: isScrolled ? '42px' : '50px',
-                    height: isScrolled ? '40px' : '48px',
-                    opacity: 0.2,
-                    filter: 'blur(6px)',
-                    transform: 'scaleY(-1)',
-                    maskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, transparent 70%)',
-                  }}
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-rubi-red/40 to-transparent" />
-                  <img
-                    src={`${import.meta.env.BASE_URL}img/logo.jpg`}
-                    alt=""
-                    className="w-full h-full object-cover opacity-70"
-                    style={{ transform: 'scaleY(-1)' }}
-                  />
-                </div>
-              </div>
-
-              <span className={`font-light uppercase transition-all duration-500 ${
-                isScrolled
-                  ? 'text-xl tracking-[0.4em]'
-                  : 'text-2xl tracking-[0.5em]'
-              }`}>
-                RUBIK
-              </span>
-            </motion.div>
-
-            {/* Navegación minimalista */}
-            <div className="hidden md:flex items-center gap-12">
-              {navItems.map((item, i) => (
-                <motion.button
-                  key={item.name}
-                  onClick={() => scrollToSection(item.href)}
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.1 + 0.3 }}
-                  className="relative group"
-                >
-                  <span className="text-xs font-normal uppercase tracking-apple-wider text-white/50 group-hover:text-white transition-all duration-600 ease-apple">
-                    {item.name}
-                  </span>
-
-                  {/* Línea animada */}
-                  <div className="absolute -bottom-1 left-0 w-0 h-px bg-gradient-to-r from-rubi-red to-white group-hover:w-full transition-all duration-700" />
-
-                  {/* Reflejo de la línea */}
-                  <div
-                    className="absolute left-0 w-0 h-px bg-gradient-to-r from-rubi-red/30 to-white/30 group-hover:w-full transition-all duration-700 blur-[1px] opacity-60"
-                    style={{ bottom: '-6px' }}
-                  />
-                </motion.button>
+      <nav className="relative max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
+        {/* Search bar — left */}
+        <div className="relative flex-1 max-w-[140px] sm:max-w-[180px] hidden sm:block">
+          <div className="flex items-center gap-2 bg-white/[0.04] border border-white/[0.06] rounded-full px-3 py-1.5 transition-all duration-500 focus-within:border-white/[0.12] focus-within:bg-white/[0.06]">
+            <svg className="w-3 h-3 text-white/20 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <input
+              type="text"
+              value={query}
+              onChange={e => setQuery(e.target.value)}
+              placeholder="Buscar..."
+              className="bg-transparent text-[11px] text-white/60 placeholder:text-white/20 outline-none w-full font-light"
+            />
+          </div>
+          {filtered.length > 0 && (
+            <div className="absolute top-full left-0 right-0 mt-2 bg-marble-800/95 backdrop-blur-xl border border-white/[0.06] rounded-xl overflow-hidden shadow-2xl">
+              {filtered.map(s => (
+                <button key={s.id} onClick={() => go(s.id)}
+                  className="w-full px-4 py-2.5 text-left text-[11px] text-white/50 hover:text-white/90 hover:bg-white/[0.04] transition-colors duration-300">
+                  {s.label}
+                </button>
               ))}
             </div>
+          )}
+        </div>
 
-            {/* Botón CTA con cristal */}
-            <div className="hidden md:block">
-              <motion.button
-                onClick={() => scrollToSection('#contacto')}
-                whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-                className="relative group"
-              >
-                <div className={`px-8 py-3 rounded-full border transition-all duration-600 ease-apple ${
-                  isScrolled
-                    ? 'border-rubi-red/40 bg-rubi-red/30'
-                    : 'border-white/40 bg-white/10'
-                }`}
-                  style={{ backdropFilter: 'blur(20px)' }}
-                >
-                  {/* Reflejo superior del botón */}
-                  <div className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-white/15 to-transparent rounded-full" />
+        {/* Logo — center */}
+        <button onClick={() => go('#inicio')} className="absolute left-1/2 -translate-x-1/2 flex items-center gap-2">
+          <img src={`${import.meta.env.BASE_URL}img/logo.jpg`} alt="RUBIK" className="w-6 h-6 rounded-md object-cover" />
+          <span className="text-[13px] font-semibold tracking-tight text-white/90">RUBIK</span>
+        </button>
 
-                  <span className="relative z-10 text-xs font-medium uppercase tracking-apple-wide text-white">
-                    Inicializar
-                  </span>
-                </div>
-
-                {/* REFLEJO INVERTIDO DEL BOTÓN - MUY VISIBLE */}
-                <div
-                  className="absolute left-0 right-0 h-full rounded-full opacity-0 group-hover:opacity-20 transition-all duration-600 ease-apple"
-                  style={{
-                    top: '48px',
-                    background: 'linear-gradient(180deg, rgba(230,0,35,0.4) 0%, transparent 100%)',
-                    filter: 'blur(8px)',
-                    transform: 'scaleY(-0.7)',
-                  }}
-                />
-              </motion.button>
-            </div>
-
-            {/* Mobile menu button */}
-            <button
-              className="md:hidden text-white/70 hover:text-white text-2xl transition-colors"
-              onClick={() => {}}
-            >
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
+        {/* Nav links — right */}
+        <div className="flex-1 flex justify-end items-center gap-4 md:gap-6">
+          <div className="hidden md:flex items-center gap-6">
+            {['Servicios', 'Proyectos', 'Planes'].map(name => (
+              <button key={name} onClick={() => go(`#${name.toLowerCase()}`)}
+                className="text-[11px] text-white/25 hover:text-white/70 transition-colors duration-500">
+                {name}
+              </button>
+            ))}
           </div>
-        </nav>
-      </div>
+          <button onClick={() => go('#contacto')}
+            className="hidden sm:block text-[11px] font-semibold text-white bg-[#e11d48] hover:bg-[#fb7185] px-6 py-2 rounded-full transition-all duration-500 shadow-[0_4px_20px_rgba(225,29,72,0.4)] hover:shadow-[0_6px_30px_rgba(225,29,72,0.5)] hover:scale-105">
+            Contacto
+          </button>
+          {/* Mobile hamburger */}
+          <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden flex flex-col gap-1.5 p-1">
+            <span className={`block w-5 h-[1.5px] bg-white/60 transition-all duration-300 ${menuOpen ? 'rotate-45 translate-y-[4.5px]' : ''}`} />
+            <span className={`block w-5 h-[1.5px] bg-white/60 transition-all duration-300 ${menuOpen ? 'opacity-0' : ''}`} />
+            <span className={`block w-5 h-[1.5px] bg-white/60 transition-all duration-300 ${menuOpen ? '-rotate-45 -translate-y-[4.5px]' : ''}`} />
+          </button>
+        </div>
+      </nav>
 
-      {/* REFLEJO COMPLETO DEL HEADER - MUY VISIBLE */}
-      <div
-        className={`absolute left-0 right-0 mx-4 rounded-2xl transition-all duration-700 pointer-events-none ${
-          isScrolled ? 'opacity-15' : 'opacity-10'
-        }`}
-        style={{
-          top: isScrolled ? '88px' : '96px',
-          height: '100px',
-          background: 'linear-gradient(180deg, rgba(0,0,0,0.8) 0%, transparent 100%)',
-          filter: 'blur(20px)',
-          transform: 'scaleY(-0.5)',
-        }}
-      />
-    </motion.header>
+      {/* Mobile menu */}
+      {menuOpen && (
+        <div className="md:hidden relative z-10 border-t border-white/[0.05] bg-marble-900/90 backdrop-blur-2xl px-6 py-4 flex flex-col gap-3">
+          {['Servicios', 'Proyectos', 'Planes'].map(name => (
+            <button key={name} onClick={() => { go(`#${name.toLowerCase()}`); setMenuOpen(false); }}
+              className="text-[13px] text-white/50 hover:text-white/90 transition-colors duration-300 text-left py-1">
+              {name}
+            </button>
+          ))}
+          <button onClick={() => { go('#contacto'); setMenuOpen(false); }}
+            className="text-[12px] font-semibold text-white bg-[#e11d48] hover:bg-[#fb7185] px-5 py-2.5 rounded-full transition-all duration-500 shadow-[0_4px_20px_rgba(225,29,72,0.4)] mt-1 w-full">
+            Contacto
+          </button>
+        </div>
+      )}
+    </header>
   );
 };
 
