@@ -1,31 +1,33 @@
-import { useEffect } from 'react';
+import { lazy, Suspense } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
-import ValueProposition from './components/ValueProposition';
-import Pricing from './components/Pricing';
-import Projects from './components/Projects';
-import Testimonials from './components/Testimonials';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
+
+const ValueProposition = lazy(() => import('./components/ValueProposition'));
+const Services = lazy(() => import('./components/Services'));
+const Projects = lazy(() => import('./components/Projects'));
+const Pricing = lazy(() => import('./components/Pricing'));
+const Testimonials = lazy(() => import('./components/Testimonials'));
+const Contact = lazy(() => import('./components/Contact'));
+const Footer = lazy(() => import('./components/Footer'));
 
 function App() {
-  useEffect(() => {
-    // Smooth scroll behavior
-    document.documentElement.style.scrollBehavior = 'smooth';
-  }, []);
-
   return (
-    <div className="min-h-screen bg-rubi-black text-neutral-light">
+    <div className="min-h-screen bg-marble-900 text-white-soft">
       <Header />
-      <main id="inicio">
+      <main>
         <Hero />
-        <ValueProposition />
-        <Pricing />
-        <Projects />
-        <Testimonials />
-        <Contact />
+        <Suspense fallback={null}>
+          <ValueProposition />
+          <Services />
+          <Projects />
+          <Pricing />
+          <Testimonials />
+          <Contact />
+        </Suspense>
       </main>
-      <Footer />
+      <Suspense fallback={null}>
+        <Footer />
+      </Suspense>
     </div>
   );
 }

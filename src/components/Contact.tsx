@@ -2,294 +2,85 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    subject: '',
-    message: '',
-    privacy: false
-  });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Form submitted:', formData);
-    // Handle form submission
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value, type } = e.target;
-    if (type === 'checkbox') {
-      const checked = (e.target as HTMLInputElement).checked;
-      setFormData(prev => ({ ...prev, [name]: checked }));
-    } else {
-      setFormData(prev => ({ ...prev, [name]: value }));
-    }
-  };
+  const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
+  const handleSubmit = (e: React.FormEvent) => e.preventDefault();
+  const set = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
+    setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
 
   return (
-    <section id="contacto" className="relative w-full min-h-screen flex flex-col bg-rubi-black">
-      {/* Background effects */}
-      <div className="absolute inset-0 z-0 bg-noise opacity-30 pointer-events-none fixed"></div>
-      <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none fixed">
-        <div className="w-[80vw] h-[80vw] bg-radial-glow from-rubi-red/5 via-rubi-crimson/5 to-transparent blur-[120px] animate-pulse-slow translate-y-[-20%]"></div>
-      </div>
+    <section id="contacto" className="relative bg-marble-900 py-16 sm:py-28 px-4 sm:px-6 marble-tex">
+      <div className="max-w-5xl mx-auto relative z-10">
+        <div className="grid lg:grid-cols-2 gap-16">
+          {/* Left */}
+          <div>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+              <span className="label-section mb-5 block">Contacto</span>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl mb-5">Hablemos de tu proyecto</h2>
+              <p className="text-[15px] text-white-faint font-light leading-relaxed mb-10">
+                Cuéntanos qué necesitas. Nuestro equipo te responde en menos de 24 horas.
+              </p>
+            </motion.div>
 
-      <main className="relative z-10 flex-grow w-full max-w-7xl mx-auto px-6 pt-32 lg:pt-40 pb-20 grid lg:grid-cols-12 gap-12 lg:gap-24 items-center">
-        {/* Left Column - Info & Map */}
-        <div className="lg:col-span-5 flex flex-col relative">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm mb-8 w-fit shadow-lg"
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-rubi-red animate-pulse"></span>
-            <span className="text-[10px] uppercase tracking-widest text-rubi-gray font-semibold">Canal Seguro</span>
+            <div className="space-y-6">
+              <div className="card p-5 flex items-center gap-4 cursor-pointer group"
+                onClick={() => window.open('https://maps.google.com/?q=Bogotá,Colombia', '_blank')}>
+                <div className="relative z-10 flex items-center gap-4 w-full">
+                  <div className="w-10 h-10 rounded-xl bg-ruby/[0.06] border border-ruby/[0.1] flex items-center justify-center">
+                    <span className="w-2 h-2 rounded-full bg-ruby shadow-[0_0_8px_rgba(225,29,72,0.6)]" />
+                  </div>
+                  <div>
+                    <div className="text-[14px] text-white-soft">Bogotá, Colombia</div>
+                    <div className="text-[11px] text-white-faint">Abrir en Maps</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="card p-5">
+                <div className="relative z-10 flex items-center gap-4">
+                  <div className="w-10 h-10 rounded-xl bg-ruby/[0.06] border border-ruby/[0.1] flex items-center justify-center">
+                    <span className="text-ruby/60 text-sm">@</span>
+                  </div>
+                  <div>
+                    <div className="text-[14px] text-white-soft">intelligence@rubik.io</div>
+                    <div className="text-[11px] text-white-faint">Email corporativo</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Form */}
+          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <form onSubmit={handleSubmit} className="card p-6 sm:p-8">
+              <div className="relative z-10 space-y-5">
+                <div>
+                  <label className="text-[11px] text-white-faint uppercase tracking-widest block mb-2">Nombre</label>
+                  <input name="name" value={form.name} onChange={set} placeholder="Tu nombre completo" className="input-marble" />
+                </div>
+                <div>
+                  <label className="text-[11px] text-white-faint uppercase tracking-widest block mb-2">Email</label>
+                  <input name="email" type="email" value={form.email} onChange={set} placeholder="nombre@empresa.com" className="input-marble" />
+                </div>
+                <div>
+                  <label className="text-[11px] text-white-faint uppercase tracking-widest block mb-2">Tema</label>
+                  <select name="subject" value={form.subject} onChange={set} className="input-marble appearance-none cursor-pointer">
+                    <option value="" className="bg-marble-800">Selecciona un tema</option>
+                    <option value="dev" className="bg-marble-800">Desarrollo de Software</option>
+                    <option value="security" className="bg-marble-800">Ciberseguridad</option>
+                    <option value="automation" className="bg-marble-800">Automatización</option>
+                    <option value="marketing" className="bg-marble-800">Marketing Digital</option>
+                    <option value="design" className="bg-marble-800">Diseño</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="text-[11px] text-white-faint uppercase tracking-widest block mb-2">Mensaje</label>
+                  <textarea name="message" value={form.message} onChange={set} placeholder="Describe tu proyecto..." rows={4}
+                    className="input-marble h-auto p-4 resize-none" />
+                </div>
+                <button type="submit" className="btn-ruby w-full">Enviar mensaje</button>
+              </div>
+            </form>
           </motion.div>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="font-display text-4xl lg:text-5xl font-bold tracking-tight text-white mb-6 leading-[1.1]"
-          >
-            Iniciar <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-rubi-red via-white to-white">Secuencia Global.</span>
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="text-rubi-gray text-lg font-light leading-relaxed mb-12"
-          >
-            Ayudamos a empresas a optimizar sus operaciones y potenciar sus ventas mediante soluciones tecnológicas, desarrollo web, ciberseguridad, automatización y estrategias digitales. Conéctate con nosotros para integrar, proteger y escalar tus sistemas.
-          </motion.p>
-
-          {/* Map Visual */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3 }}
-            className="relative w-full h-[300px] perspective-1000 flex items-center justify-center border border-white/5 bg-white/[0.02] rounded-2xl overflow-hidden group shadow-2xl"
-          >
-            {/* Animated grid background */}
-            <div className="absolute inset-[-50%] animate-pulse-slow" style={{
-              backgroundImage: 'linear-gradient(rgba(230, 0, 35, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(230, 0, 35, 0.1) 1px, transparent 1px)',
-              backgroundSize: '40px 40px',
-              transform: 'rotateX(60deg) scale(1.5)',
-              maskImage: 'radial-gradient(circle at center, black 30%, transparent 70%)',
-              WebkitMaskImage: 'radial-gradient(circle at center, black 30%, transparent 70%)'
-            }}></div>
-
-            {/* Center marker */}
-            <div className="relative preserve-3d animate-float">
-              <div className="w-4 h-4 bg-rubi-red rounded-full shadow-[0_0_30px_rgba(230,0,35,0.8)] relative z-10"></div>
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 border border-rubi-red/30 rounded-full animate-[spin_10s_linear_infinite]" style={{ transform: 'rotateX(70deg)' }}></div>
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 border border-white/10 rounded-full" style={{ animation: 'spin 15s linear infinite reverse', transform: 'rotateX(70deg)' }}></div>
-              <div className="absolute bottom-1/2 left-1/2 -translate-x-1/2 w-[1px] h-32 bg-gradient-to-t from-rubi-red to-transparent opacity-50"></div>
-
-              {/* Location label */}
-              <div className="absolute top-[-40px] left-[40px] bg-rubi-dark/90 border border-white/10 px-3 py-1 rounded text-[10px] text-rubi-gray whitespace-nowrap backdrop-blur-md shadow-lg transform translate-z-10 animate-float" style={{ animationDelay: '1s' }}>
-                <span className="text-rubi-red mr-1">●</span> RUBIK HQ <br />
-                <span className="text-white font-mono">37.7749° N</span>
-              </div>
-            </div>
-
-            {/* Status indicator */}
-            <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end">
-              <div className="flex flex-col gap-1">
-                <span className="text-[10px] text-rubi-gray uppercase tracking-wider">Estado</span>
-                <span className="text-xs text-white font-mono">EN LÍNEA</span>
-              </div>
-              <svg className="w-5 h-5 text-rubi-red/50 animate-pulse" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
-              </svg>
-            </div>
-          </motion.div>
-
-          {/* Contact Info */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.4 }}
-            className="mt-12 space-y-4"
-          >
-            <div className="flex items-center gap-4 group cursor-default">
-              <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-rubi-red/30 group-hover:bg-rubi-red/10 transition-colors">
-                <svg className="w-[18px] h-[18px] text-white" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-                  <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-                </svg>
-              </div>
-              <div>
-                <div className="text-[11px] text-rubi-gray uppercase tracking-wide">Correo Electrónico</div>
-                <div className="text-white text-sm font-medium">intelligence@rubik.io</div>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-4 group cursor-default">
-              <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-rubi-red/30 group-hover:bg-rubi-red/10 transition-colors">
-                <svg className="w-[18px] h-[18px] text-white" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                </svg>
-              </div>
-              <div>
-                <div className="text-[11px] text-rubi-gray uppercase tracking-wide">Base de Operaciones</div>
-                <div className="text-white text-sm font-medium">Bogotá, Colombia</div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Right Column - Form */}
-        <motion.div
-          initial={{ opacity: 0, x: 50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-          className="lg:col-span-7 relative"
-        >
-          <form onSubmit={handleSubmit} className="relative bg-rubi-dark/60 backdrop-blur-2xl border border-white/5 rounded-3xl p-8 md:p-10 shadow-[0_0_50px_-10px_rgba(0,0,0,0.5)] overflow-hidden">
-            {/* Top gradient glow */}
-            <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-gradient-to-b from-rubi-red/5 to-transparent blur-3xl pointer-events-none rounded-full transform translate-x-1/2 -translate-y-1/2"></div>
-
-            {/* Name fields */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-              <div className="space-y-2">
-                <label htmlFor="firstName" className="text-xs font-medium text-rubi-gray uppercase tracking-wider ml-1">
-                  Nombre
-                </label>
-                <input
-                  type="text"
-                  id="firstName"
-                  name="firstName"
-                  value={formData.firstName}
-                  onChange={handleChange}
-                  placeholder="Ingresa tu nombre"
-                  className="w-full h-12 rounded-lg px-4 text-sm text-white bg-white/[0.03] border border-white/10 placeholder-white/20 focus:bg-white/[0.05] focus:border-rubi-red/50 focus:outline-none transition-all"
-                />
-              </div>
-              <div className="space-y-2">
-                <label htmlFor="lastName" className="text-xs font-medium text-rubi-gray uppercase tracking-wider ml-1">
-                  Apellido
-                </label>
-                <input
-                  type="text"
-                  id="lastName"
-                  name="lastName"
-                  value={formData.lastName}
-                  onChange={handleChange}
-                  placeholder="Ingresa tu apellido"
-                  className="w-full h-12 rounded-lg px-4 text-sm text-white bg-white/[0.03] border border-white/10 placeholder-white/20 focus:bg-white/[0.05] focus:border-rubi-red/50 focus:outline-none transition-all"
-                />
-              </div>
-            </div>
-
-            {/* Email */}
-            <div className="space-y-2 mb-6">
-              <label htmlFor="email" className="text-xs font-medium text-rubi-gray uppercase tracking-wider ml-1">
-                Email Empresarial
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="nombre@empresa.com"
-                className="w-full h-12 rounded-lg px-4 text-sm text-white bg-white/[0.03] border border-white/10 placeholder-white/20 focus:bg-white/[0.05] focus:border-rubi-red/50 focus:outline-none transition-all"
-              />
-            </div>
-
-            {/* Subject */}
-            <div className="space-y-2 mb-6">
-              <label htmlFor="subject" className="text-xs font-medium text-rubi-gray uppercase tracking-wider ml-1">
-                Tipo de Consulta
-              </label>
-              <div className="relative">
-                <select
-                  id="subject"
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  className="w-full h-12 rounded-lg px-4 text-sm text-white bg-white/[0.03] border border-white/10 appearance-none cursor-pointer focus:bg-white/[0.05] focus:border-rubi-red/50 focus:outline-none transition-all"
-                >
-                  <option value="" className="bg-rubi-dark text-gray-400">Selecciona un tema</option>
-                  <option value="transformation" className="bg-rubi-dark text-white">Transformación Digital</option>
-                  <option value="cybersecurity" className="bg-rubi-dark text-white">Ciberseguridad ISO 27001</option>
-                  <option value="development" className="bg-rubi-dark text-white">Desarrollo Web & Apps</option>
-                  <option value="agile" className="bg-rubi-dark text-white">Metodologías Ágiles</option>
-                  <option value="marketing" className="bg-rubi-dark text-white">Marketing Digital</option>
-                  <option value="design" className="bg-rubi-dark text-white">Diseño & Branding</option>
-                  <option value="consulting" className="bg-rubi-dark text-white">Consultoría Estratégica</option>
-                  <option value="partnership" className="bg-rubi-dark text-white">Propuesta de Alianza</option>
-                </select>
-                <svg className="absolute right-4 top-1/2 -translate-y-1/2 text-rubi-gray pointer-events-none w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-                </svg>
-              </div>
-            </div>
-
-            {/* Message */}
-            <div className="space-y-2 mb-8">
-              <label htmlFor="message" className="text-xs font-medium text-rubi-gray uppercase tracking-wider ml-1">
-                Protocolo de Mensaje
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                placeholder="Detalla tus requerimientos..."
-                rows={4}
-                className="w-full rounded-lg p-4 text-sm text-white bg-white/[0.03] border border-white/10 placeholder-white/20 resize-none focus:bg-white/[0.05] focus:border-rubi-red/50 focus:outline-none transition-all"
-              />
-            </div>
-
-            {/* Footer */}
-            <div className="flex items-center justify-between pt-2 border-t border-white/5">
-              <div className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  id="privacy"
-                  name="privacy"
-                  checked={formData.privacy}
-                  onChange={handleChange}
-                  className="rounded bg-white/5 border-white/20 text-rubi-red focus:ring-0 focus:ring-offset-0 w-4 h-4 cursor-pointer"
-                />
-                <label htmlFor="privacy" className="text-[11px] text-rubi-gray cursor-pointer select-none">
-                  Acepto la <a href="#" className="text-white hover:text-rubi-red transition-colors underline decoration-white/20 underline-offset-2">Política de Privacidad</a>
-                </label>
-              </div>
-              <button
-                type="submit"
-                className="group relative bg-white text-rubi-black px-6 py-3 rounded-full text-sm font-semibold hover:bg-rubi-red hover:text-white transition-all duration-300 flex items-center gap-2 overflow-hidden"
-              >
-                <span className="relative z-10">Transmitir Solicitud</span>
-                <svg className="w-[18px] h-[18px] relative z-10 group-hover:rotate-45 transition-transform duration-300" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
-                </svg>
-                <div className="absolute inset-0 bg-rubi-red transform scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300"></div>
-              </button>
-            </div>
-          </form>
-        </motion.div>
-      </main>
-
-      {/* Bottom line effect */}
-      <div className="absolute bottom-0 w-full h-[1px] bg-white/5 z-20">
-        <div className="absolute top-0 left-0 w-full h-full">
-          <motion.div
-            animate={{ x: ['-100%', '100%'] }}
-            transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-            className="w-[20%] h-full bg-gradient-to-r from-transparent via-rubi-red to-transparent opacity-50"
-          />
         </div>
       </div>
     </section>
