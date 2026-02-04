@@ -101,7 +101,7 @@ const Header = () => {
       {/* Particle canvas */}
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" />
 
-      <nav className="relative max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
+      <nav className="relative max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Search bar — left */}
         <div className="relative flex-1 max-w-[140px] sm:max-w-[180px] hidden sm:block">
           <div className="flex items-center gap-2 bg-white/[0.04] border border-white/[0.06] rounded-full px-3 py-1.5 transition-all duration-500 focus-within:border-white/[0.12] focus-within:bg-white/[0.06]">
@@ -129,9 +129,9 @@ const Header = () => {
         </div>
 
         {/* Logo — center */}
-        <button onClick={() => go('#inicio')} className="absolute left-1/2 -translate-x-1/2 flex items-center gap-2">
-          <img src={`${import.meta.env.BASE_URL}img/logo.jpg`} alt="RUBIK" className="w-6 h-6 rounded-md object-cover" />
-          <span className="text-[13px] font-semibold tracking-tight text-white/90">RUBIK</span>
+        <button onClick={() => go('#inicio')} className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center gap-1">
+          <img src={`${import.meta.env.BASE_URL}img/logo.png`} alt="RUBIK" className="w-8 h-8 object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.6)]" />
+          <span className="text-[9px] font-semibold tracking-[0.2em] uppercase text-white/80">RUBIK</span>
         </button>
 
         {/* Nav links — right */}
