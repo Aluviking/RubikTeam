@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react';
 import Header from './components/Header';
-import Hero from './components/Hero';
+import HeroVideo from './components/HeroVideo';
+// import Hero from './components/Hero'; // Hero original (backup)
 
 const ValueProposition = lazy(() => import('./components/ValueProposition'));
 const Services = lazy(() => import('./components/Services'));
@@ -15,7 +16,7 @@ function App() {
     <div className="min-h-screen bg-marble-900 text-white-soft">
       <Header />
       <main>
-        <Hero />
+        <HeroVideo />
         <Suspense fallback={null}>
           <ValueProposition />
           <Services />
